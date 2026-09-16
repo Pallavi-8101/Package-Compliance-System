@@ -1,0 +1,4900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>VeriShield | Compliance Report</title>
+
+    <meta
+        name="description"
+        content="VeriShield preliminary package compliance report."
+    >
+
+    <!-- =========================================================
+         APPLY SAVED THEME BEFORE PAGE LOAD
+    ========================================================== -->
+
+    <script>
+        if (
+            localStorage.getItem("verishield_theme") === "dark"
+        ) {
+            document.documentElement.classList.add("dark-mode");
+        }
+    </script>
+
+    <style>
+
+        /* =========================================================
+           VERISHIELD REPORT
+           Emerald + Mint + Warm Cream Theme
+           No Blue / No Red
+        ========================================================== */
+
+        :root {
+
+            --primary: #176b57;
+            --primary-dark: #0d4f40;
+            --primary-light: #2f9278;
+
+            --mint: #dff4eb;
+            --mint-soft: #eefaf5;
+            --mint-bright: #c9eee0;
+
+            --cream: #fbfaf5;
+            --cream-dark: #f4f1e8;
+
+            --text: #17352d;
+            --text-light: #61746e;
+            --text-muted: #82918c;
+
+            --white: #ffffff;
+
+            --success: #23835f;
+            --success-soft: #e3f5ec;
+
+            --warning: #b87920;
+            --warning-soft: #fff1d8;
+
+            --border: #dce8e2;
+
+            --shadow-sm:
+                0 6px 20px rgba(23, 107, 87, 0.07);
+
+            --shadow-md:
+                0 15px 45px rgba(23, 107, 87, 0.10);
+
+            --shadow-lg:
+                0 25px 70px rgba(23, 107, 87, 0.14);
+
+            --radius-sm: 12px;
+            --radius-md: 18px;
+            --radius-lg: 28px;
+            --radius-xl: 36px;
+
+            --page-bg: var(--cream);
+            --card-bg: rgba(255,255,255,0.88);
+            --nav-bg: rgba(251,250,245,0.90);
+            --input-bg: #ffffff;
+        }
+
+
+        /* =========================================================
+           DARK MODE
+        ========================================================== */
+
+        html.dark-mode {
+
+            --cream: #0d1815;
+            --cream-dark: #13241f;
+
+            --text: #e7f3ee;
+            --text-light: #b2c5be;
+            --text-muted: #8da39b;
+
+            --white: #172923;
+
+            --mint: #17382e;
+            --mint-soft: #102b23;
+            --mint-bright: #28594a;
+
+            --success-soft: #15382d;
+
+            --warning-soft: #3a2c17;
+
+            --border: #29483e;
+
+            --page-bg: #0d1815;
+            --card-bg: rgba(23,41,35,0.90);
+            --nav-bg: rgba(13,24,21,0.92);
+            --input-bg: #13241f;
+
+            --shadow-sm:
+                0 6px 20px rgba(0,0,0,0.20);
+
+            --shadow-md:
+                0 15px 45px rgba(0,0,0,0.25);
+
+            --shadow-lg:
+                0 25px 70px rgba(0,0,0,0.32);
+        }
+
+
+        /* =========================================================
+           RESET
+        ========================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            font-family:
+                Inter,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            color: var(--text);
+
+            background:
+                radial-gradient(
+                    circle at 5% 5%,
+                    rgba(223,244,235,0.80),
+                    transparent 28%
+                ),
+
+                radial-gradient(
+                    circle at 95% 15%,
+                    rgba(201,238,224,0.55),
+                    transparent 25%
+                ),
+
+                var(--page-bg);
+
+            line-height: 1.6;
+
+            min-height: 100vh;
+
+            overflow-x: hidden;
+
+            transition:
+                background 0.3s ease,
+                color 0.3s ease;
+        }
+
+
+        html.dark-mode body {
+
+            background:
+                radial-gradient(
+                    circle at 5% 5%,
+                    rgba(23,107,87,0.16),
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 95% 15%,
+                    rgba(47,146,120,0.10),
+                    transparent 28%
+                ),
+
+                var(--page-bg);
+        }
+
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+
+        button {
+            cursor: pointer;
+        }
+
+
+        /* =========================================================
+           BACKGROUND DECORATIONS
+        ========================================================== */
+
+        .background-decoration {
+
+            position: fixed;
+
+            pointer-events: none;
+
+            z-index: -1;
+
+            border-radius: 50%;
+
+            filter: blur(2px);
+        }
+
+
+        .blob-one {
+
+            width: 420px;
+            height: 420px;
+
+            background:
+                rgba(201,238,224,0.45);
+
+            top: -180px;
+            right: -120px;
+        }
+
+
+        .blob-two {
+
+            width: 320px;
+            height: 320px;
+
+            background:
+                rgba(223,244,235,0.50);
+
+            bottom: 5%;
+            left: -170px;
+        }
+
+
+        html.dark-mode .blob-one {
+
+            background:
+                rgba(23,107,87,0.13);
+        }
+
+
+        html.dark-mode .blob-two {
+
+            background:
+                rgba(47,146,120,0.10);
+        }
+
+
+        /* =========================================================
+           NAVBAR
+        ========================================================== */
+
+        .navbar {
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+
+            z-index: 1000;
+
+            background:
+                var(--nav-bg);
+
+            backdrop-filter:
+                blur(18px);
+
+            -webkit-backdrop-filter:
+                blur(18px);
+
+            border-bottom:
+                1px solid var(--border);
+
+            transition:
+                0.3s ease;
+        }
+
+
+        .nav-container {
+
+            width:
+                min(1180px, 92%);
+
+            margin:
+                auto;
+
+            min-height:
+                78px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                25px;
+        }
+
+
+        /* =========================================================
+           LOGO
+        ========================================================== */
+
+        .logo {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                11px;
+
+            font-weight:
+                800;
+
+            font-size:
+                22px;
+
+            letter-spacing:
+                -0.5px;
+
+            white-space:
+                nowrap;
+        }
+
+
+        .logo-icon {
+
+            width:
+                42px;
+
+            height:
+                42px;
+
+            border-radius:
+                14px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            color:
+                white;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--primary-light),
+                    var(--primary-dark)
+                );
+
+            box-shadow:
+                0 8px 20px
+                rgba(23,107,87,0.25);
+
+            position:
+                relative;
+
+            overflow:
+                hidden;
+        }
+
+
+        .logo-icon::after {
+
+            content:
+                "";
+
+            position:
+                absolute;
+
+            width:
+                16px;
+
+            height:
+                16px;
+
+            border:
+                2px solid
+                rgba(255,255,255,0.55);
+
+            border-radius:
+                50%;
+
+            bottom:
+                -5px;
+
+            right:
+                -5px;
+        }
+
+
+        .logo-icon span {
+
+            font-size:
+                21px;
+
+            position:
+                relative;
+
+            z-index:
+                2;
+        }
+
+
+        .logo-text {
+            color:
+                var(--text);
+        }
+
+
+        .logo-text span {
+            color:
+                var(--primary);
+        }
+
+
+        /* =========================================================
+           NAVIGATION LINKS
+        ========================================================== */
+
+        .nav-links {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                26px;
+        }
+
+
+        .nav-links a {
+
+            font-size:
+                14px;
+
+            font-weight:
+                650;
+
+            color:
+                var(--text-light);
+
+            transition:
+                0.25s ease;
+
+            position:
+                relative;
+        }
+
+
+        .nav-links a::after {
+
+            content:
+                "";
+
+            position:
+                absolute;
+
+            left:
+                0;
+
+            bottom:
+                -7px;
+
+            width:
+                0;
+
+            height:
+                2px;
+
+            border-radius:
+                10px;
+
+            background:
+                var(--primary);
+
+            transition:
+                0.25s ease;
+        }
+
+
+        .nav-links a:hover,
+        .nav-links a.active {
+
+            color:
+                var(--primary);
+        }
+
+
+        .nav-links a.active::after,
+        .nav-links a:hover::after {
+
+            width:
+                100%;
+        }
+
+
+        /* =========================================================
+           NAV ACTIONS
+        ========================================================== */
+
+        .nav-actions {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                10px;
+        }
+
+
+        .theme-toggle {
+
+            width:
+                42px;
+
+            height:
+                42px;
+
+            border-radius:
+                12px;
+
+            border:
+                1px solid var(--border);
+
+            background:
+                var(--card-bg);
+
+            color:
+                var(--text);
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                17px;
+
+            transition:
+                0.25s ease;
+        }
+
+
+        .theme-toggle:hover {
+
+            transform:
+                translateY(-2px);
+
+            border-color:
+                var(--mint-bright);
+
+            background:
+                var(--mint-soft);
+        }
+
+
+        /* =========================================================
+           PROFILE AVATAR
+        ========================================================== */
+
+        .profile-button {
+
+            width:
+                42px;
+
+            height:
+                42px;
+
+            border-radius:
+                50%;
+
+            border:
+                1px solid var(--border);
+
+            background:
+                var(--mint);
+
+            color:
+                var(--primary);
+
+            font-size:
+                14px;
+
+            font-weight:
+                800;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            transition:
+                0.25s ease;
+        }
+
+
+        .profile-button:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                var(--shadow-sm);
+        }
+
+
+        /* =========================================================
+           MOBILE MENU
+        ========================================================== */
+
+        .mobile-menu {
+
+            display:
+                none;
+
+            width:
+                42px;
+
+            height:
+                42px;
+
+            border-radius:
+                12px;
+
+            border:
+                1px solid var(--border);
+
+            background:
+                var(--card-bg);
+
+            color:
+                var(--primary);
+
+            font-size:
+                20px;
+        }
+
+
+        /* =========================================================
+           PAGE
+        ========================================================== */
+
+        .page {
+
+            width:
+                min(1180px, 92%);
+
+            margin:
+                0 auto;
+
+            padding:
+                125px 0 70px;
+        }
+
+
+        /* =========================================================
+           PAGE HEADER
+        ========================================================== */
+
+        .page-header {
+
+            display:
+                flex;
+
+            align-items:
+                flex-end;
+
+            justify-content:
+                space-between;
+
+            gap:
+                30px;
+
+            margin-bottom:
+                28px;
+        }
+
+
+        .page-heading {
+
+            max-width:
+                720px;
+        }
+
+
+        .eyebrow {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            gap:
+                8px;
+
+            padding:
+                8px 13px;
+
+            border-radius:
+                999px;
+
+            background:
+                var(--mint-soft);
+
+            border:
+                1px solid var(--mint-bright);
+
+            color:
+                var(--primary);
+
+            font-size:
+                12px;
+
+            font-weight:
+                800;
+
+            margin-bottom:
+                15px;
+        }
+
+
+        .eyebrow-dot {
+
+            width:
+                8px;
+
+            height:
+                8px;
+
+            border-radius:
+                50%;
+
+            background:
+                var(--success);
+
+            box-shadow:
+                0 0 0 5px
+                rgba(35,131,95,0.10);
+        }
+
+
+        .page-heading h1 {
+
+            font-size:
+                clamp(34px, 5vw, 54px);
+
+            line-height:
+                1.05;
+
+            letter-spacing:
+                -2px;
+
+            margin-bottom:
+                12px;
+
+            color:
+                var(--text);
+        }
+
+
+        .page-heading h1 span {
+
+            color:
+                var(--primary);
+        }
+
+
+        .page-heading p {
+
+            color:
+                var(--text-light);
+
+            font-size:
+                15px;
+
+            max-width:
+                690px;
+        }
+
+
+        /* =========================================================
+           HEADER ACTIONS
+        ========================================================== */
+
+        .header-actions {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                10px;
+
+            flex-wrap:
+                wrap;
+
+            justify-content:
+                flex-end;
+        }
+
+
+        .btn {
+
+            border:
+                none;
+
+            cursor:
+                pointer;
+
+            padding:
+                12px 18px;
+
+            border-radius:
+                12px;
+
+            font-size:
+                13px;
+
+            font-weight:
+                750;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+        }
+
+
+        .btn:hover {
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        .btn-outline {
+
+            background:
+                transparent;
+
+            color:
+                var(--primary);
+
+            border:
+                1px solid var(--border);
+        }
+
+
+        .btn-outline:hover {
+
+            background:
+                var(--mint-soft);
+
+            border-color:
+                var(--mint-bright);
+        }
+
+
+        .btn-primary {
+
+            color:
+                white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary-light),
+                    var(--primary-dark)
+                );
+
+            box-shadow:
+                0 10px 25px
+                rgba(23,107,87,0.20);
+        }
+
+
+        .btn-primary:hover {
+
+            box-shadow:
+                0 15px 32px
+                rgba(23,107,87,0.28);
+        }
+
+
+        /* =========================================================
+           REPORT PAPER
+        ========================================================== */
+
+        .report-paper {
+
+            background:
+                var(--card-bg);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                var(--radius-lg);
+
+            box-shadow:
+                var(--shadow-lg);
+
+            overflow:
+                hidden;
+
+            backdrop-filter:
+                blur(16px);
+        }
+
+
+        /* =========================================================
+           REPORT COVER
+        ========================================================== */
+
+        .report-cover {
+
+            padding:
+                35px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--mint-soft),
+                    var(--cream)
+                );
+
+            border-bottom:
+                1px solid var(--border);
+
+            position:
+                relative;
+
+            overflow:
+                hidden;
+        }
+
+
+        .report-cover::after {
+
+            content:
+                "";
+
+            position:
+                absolute;
+
+            width:
+                260px;
+
+            height:
+                260px;
+
+            border-radius:
+                50%;
+
+            background:
+                rgba(201,238,224,0.40);
+
+            right:
+                -90px;
+
+            top:
+                -110px;
+
+            pointer-events:
+                none;
+        }
+
+
+        .cover-top {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                flex-start;
+
+            gap:
+                30px;
+
+            position:
+                relative;
+
+            z-index:
+                2;
+        }
+
+
+        .report-brand {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                13px;
+        }
+
+
+        .report-brand-icon {
+
+            width:
+                54px;
+
+            height:
+                54px;
+
+            border-radius:
+                17px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                25px;
+
+            color:
+                white;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--primary-light),
+                    var(--primary-dark)
+                );
+
+            box-shadow:
+                0 10px 24px
+                rgba(23,107,87,0.22);
+        }
+
+
+        .report-brand-text strong {
+
+            display:
+                block;
+
+            font-size:
+                19px;
+
+            font-weight:
+                850;
+        }
+
+
+        .report-brand-text span {
+
+            display:
+                block;
+
+            color:
+                var(--text-muted);
+
+            font-size:
+                11px;
+
+            margin-top:
+                1px;
+        }
+
+
+        .report-status {
+
+            padding:
+                9px 13px;
+
+            border-radius:
+                999px;
+
+            background:
+                var(--success-soft);
+
+            color:
+                var(--success);
+
+            border:
+                1px solid
+                rgba(35,131,95,0.18);
+
+            font-size:
+                11px;
+
+            font-weight:
+                850;
+
+            letter-spacing:
+                0.3px;
+
+            white-space:
+                nowrap;
+        }
+
+
+        .report-cover-content {
+
+            margin-top:
+                35px;
+
+            position:
+                relative;
+
+            z-index:
+                2;
+        }
+
+
+        .report-cover-content h2 {
+
+            font-size:
+                clamp(28px, 4vw, 43px);
+
+            line-height:
+                1.08;
+
+            letter-spacing:
+                -1.5px;
+
+            margin-bottom:
+                10px;
+        }
+
+
+        .report-cover-content p {
+
+            color:
+                var(--text-light);
+
+            font-size:
+                14px;
+
+            max-width:
+                720px;
+        }
+
+
+        /* =========================================================
+           REPORT META
+        ========================================================== */
+
+        .report-meta {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap:
+                12px;
+
+            margin-top:
+                28px;
+
+            position:
+                relative;
+
+            z-index:
+                2;
+        }
+
+
+        .meta-card {
+
+            padding:
+                15px;
+
+            background:
+                rgba(255,255,255,0.62);
+
+            border:
+                1px solid
+                rgba(220,232,226,0.90);
+
+            border-radius:
+                15px;
+        }
+
+
+        html.dark-mode .meta-card {
+
+            background:
+                rgba(23,41,35,0.68);
+        }
+
+
+        .meta-card small {
+
+            display:
+                block;
+
+            color:
+                var(--text-muted);
+
+            font-size:
+                10px;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                0.6px;
+
+            font-weight:
+                800;
+
+            margin-bottom:
+                4px;
+        }
+
+
+        .meta-card strong {
+
+            font-size:
+                13px;
+
+            color:
+                var(--text);
+        }
+
+
+        /* =========================================================
+           REPORT BODY
+        ========================================================== */
+
+        .report-body {
+
+            padding:
+                34px;
+        }
+
+
+        .section-title {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                20px;
+
+            margin-bottom:
+                17px;
+        }
+
+
+        .section-title-left {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                10px;
+        }
+
+
+        .section-icon {
+
+            width:
+                38px;
+
+            height:
+                38px;
+
+            border-radius:
+                12px;
+
+            background:
+                var(--mint);
+
+            color:
+                var(--primary);
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                17px;
+        }
+
+
+        .section-title h3 {
+
+            font-size:
+                17px;
+
+            letter-spacing:
+                -0.3px;
+        }
+
+
+        .section-title span {
+
+            color:
+                var(--text-muted);
+
+            font-size:
+                11px;
+
+            font-weight:
+                700;
+        }
+
+
+        /* =========================================================
+           SUMMARY GRID
+        ========================================================== */
+
+        .summary-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1.15fr 0.85fr;
+
+            gap:
+                18px;
+
+            margin-bottom:
+                30px;
+        }
+
+
+        .summary-card {
+
+            background:
+                var(--mint-soft);
+
+            border:
+                1px solid var(--mint-bright);
+
+            border-radius:
+                20px;
+
+            padding:
+                22px;
+        }
+
+
+        .summary-card h4 {
+
+            font-size:
+                13px;
+
+            margin-bottom:
+                15px;
+        }
+
+
+        /* =========================================================
+           SCORE
+        ========================================================== */
+
+        .score-layout {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                22px;
+        }
+
+
+        .score-circle {
+
+            width:
+                125px;
+
+            height:
+                125px;
+
+            border-radius:
+                50%;
+
+            background:
+                conic-gradient(
+                    var(--success) 0deg 306deg,
+                    var(--mint-bright) 306deg 360deg
+                );
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            flex-shrink:
+                0;
+
+            position:
+                relative;
+        }
+
+
+        .score-circle::before {
+
+            content:
+                "";
+
+            width:
+                94px;
+
+            height:
+                94px;
+
+            border-radius:
+                50%;
+
+            background:
+                var(--mint-soft);
+
+            position:
+                absolute;
+        }
+
+
+        .score-circle strong {
+
+            position:
+                relative;
+
+            z-index:
+                2;
+
+            font-size:
+                27px;
+
+            color:
+                var(--primary);
+        }
+
+
+        .score-info strong {
+
+            display:
+                block;
+
+            font-size:
+                19px;
+
+            margin-bottom:
+                5px;
+        }
+
+
+        .score-info p {
+
+            color:
+                var(--text-light);
+
+            font-size:
+                12px;
+
+            max-width:
+                360px;
+        }
+
+
+        .score-badge {
+
+            display:
+                inline-flex;
+
+            margin-top:
+                10px;
+
+            padding:
+                6px 9px;
+
+            border-radius:
+                999px;
+
+            background:
+                var(--success-soft);
+
+            color:
+                var(--success);
+
+            font-size:
+                10px;
+
+            font-weight:
+                850;
+        }
+
+
+        /* =========================================================
+           STAT CARDS
+        ========================================================== */
+
+        .stat-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap:
+                10px;
+        }
+
+
+        .stat-box {
+
+            padding:
+                15px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                15px;
+
+            background:
+                var(--card-bg);
+        }
+
+
+        .stat-box small {
+
+            display:
+                block;
+
+            color:
+                var(--text-muted);
+
+            font-size:
+                10px;
+
+            text-transform:
+                uppercase;
+
+            font-weight:
+                800;
+
+            margin-bottom:
+                5px;
+        }
+
+
+        .stat-box strong {
+
+            font-size:
+                23px;
+
+            color:
+                var(--text);
+        }
+
+
+        .stat-box span {
+
+            display:
+                block;
+
+            color:
+                var(--text-light);
+
+            font-size:
+                10px;
+
+            margin-top:
+                2px;
+        }
+
+
+        /* =========================================================
+           PRODUCT INFORMATION
+        ========================================================== */
+
+        .product-section {
+
+            margin-bottom:
+                30px;
+        }
+
+
+        .product-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap:
+                12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                18px;
+
+            overflow:
+                hidden;
+
+            background:
+                var(--card-bg);
+        }
+
+
+        .product-field {
+
+            padding:
+                17px;
+
+            border-bottom:
+                1px solid var(--border);
+        }
+
+
+        .product-field:nth-child(odd) {
+
+            border-right:
+                1px solid var(--border);
+        }
+
+
+        .product-field:nth-last-child(-n+2) {
+
+            border-bottom:
+                none;
+        }
+
+
+        .product-field small {
+
+            display:
+                block;
+
+            color:
+                var(--text-muted);
+
+            font-size:
+                10px;
+
+            font-weight:
+                800;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                0.4px;
+
+            margin-bottom:
+                4px;
+        }
+
+
+        .product-field strong {
+
+            font-size:
+                13px;
+
+            color:
+                var(--text);
+        }
+
+
+        /* =========================================================
+           COMPLIANCE TABLE
+        ========================================================== */
+
+        .compliance-section {
+
+            margin-bottom:
+                30px;
+        }
+
+
+        .table-wrapper {
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                18px;
+
+            overflow:
+                hidden;
+
+            background:
+                var(--card-bg);
+        }
+
+
+        .compliance-table {
+
+            width:
+                100%;
+
+            border-collapse:
+                collapse;
+        }
+
+
+        .compliance-table th {
+
+            text-align:
+                left;
+
+            padding:
+                14px 15px;
+
+            background:
+                var(--mint-soft);
+
+            color:
+                var(--text-light);
+
+            font-size:
+                10px;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                0.5px;
+
+            font-weight:
+                850;
+
+            border-bottom:
+                1px solid var(--border);
+        }
+
+
+        .compliance-table td {
+
+            padding:
+                15px;
+
+            font-size:
+                12px;
+
+            border-bottom:
+                1px solid var(--border);
+
+            vertical-align:
+                middle;
+        }
+
+
+        .compliance-table tr:last-child td {
+
+            border-bottom:
+                none;
+        }
+
+
+        .rule-id {
+
+            display:
+                inline-flex;
+
+            padding:
+                5px 8px;
+
+            border-radius:
+                8px;
+
+            background:
+                var(--cream-dark);
+
+            color:
+                var(--text-light);
+
+            font-size:
+                10px;
+
+            font-weight:
+                800;
+        }
+
+
+        .field-name {
+
+            font-weight:
+                750;
+        }
+
+
+        .field-value {
+
+            color:
+                var(--text-light);
+
+            max-width:
+                260px;
+        }
+
+
+        .status {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            gap:
+                5px;
+
+            padding:
+                6px 9px;
+
+            border-radius:
+                999px;
+
+            font-size:
+                9px;
+
+            font-weight:
+                850;
+
+            letter-spacing:
+                0.3px;
+        }
+
+
+        .status-pass {
+
+            background:
+                var(--success-soft);
+
+            color:
+                var(--success);
+        }
+
+
+        .status-review {
+
+            background:
+                var(--warning-soft);
+
+            color:
+                var(--warning);
+        }
+
+
+        .status-fail {
+
+            background:
+                var(--warning-soft);
+
+            color:
+                var(--warning);
+        }
+
+
+        /* =========================================================
+           FINDINGS
+        ========================================================== */
+
+        .findings-section {
+
+            margin-bottom:
+                30px;
+        }
+
+
+        .finding-list {
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            gap:
+                11px;
+        }
+
+
+        .finding {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                44px 1fr auto;
+
+            align-items:
+                center;
+
+            gap:
+                13px;
+
+            padding:
+                16px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                16px;
+
+            background:
+                var(--card-bg);
+        }
+
+
+        .finding-icon {
+
+            width:
+                40px;
+
+            height:
+                40px;
+
+            border-radius:
+                12px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            background:
+                var(--warning-soft);
+
+            color:
+                var(--warning);
+
+            font-size:
+                17px;
+
+            font-weight:
+                900;
+        }
+
+
+        .finding-content strong {
+
+            display:
+                block;
+
+            font-size:
+                13px;
+
+            margin-bottom:
+                3px;
+        }
+
+
+        .finding-content p {
+
+            color:
+                var(--text-light);
+
+            font-size:
+                11px;
+        }
+
+
+        .finding-tag {
+
+            padding:
+                6px 9px;
+
+            border-radius:
+                999px;
+
+            background:
+                var(--warning-soft);
+
+            color:
+                var(--warning);
+
+            font-size:
+                9px;
+
+            font-weight:
+                850;
+
+            white-space:
+                nowrap;
+        }
+
+
+        /* =========================================================
+           EVIDENCE
+        ========================================================== */
+
+        .evidence-section {
+
+            margin-bottom:
+                30px;
+        }
+
+
+        .evidence-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap:
+                12px;
+        }
+
+
+        .evidence-card {
+
+            padding:
+                18px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                17px;
+
+            background:
+                var(--card-bg);
+
+            transition:
+                0.25s ease;
+        }
+
+
+        .evidence-card:hover {
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                var(--shadow-sm);
+        }
+
+
+        .evidence-icon {
+
+            width:
+                40px;
+
+            height:
+                40px;
+
+            border-radius:
+                12px;
+
+            background:
+                var(--mint);
+
+            color:
+                var(--primary);
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            margin-bottom:
+                12px;
+
+            font-size:
+                17px;
+        }
+
+
+        .evidence-card h4 {
+
+            font-size:
+                12px;
+
+            margin-bottom:
+                5px;
+        }
+
+
+        .evidence-card p {
+
+            color:
+                var(--text-light);
+
+            font-size:
+                10px;
+
+            line-height:
+                1.55;
+        }
+
+
+        /* =========================================================
+           OCR TEXT
+        ========================================================== */
+
+        .ocr-section {
+
+            margin-bottom:
+                30px;
+        }
+
+
+        .ocr-box {
+
+            padding:
+                20px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                18px;
+
+            background:
+                var(--cream-dark);
+
+            position:
+                relative;
+        }
+
+
+        .ocr-header {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            gap:
+                10px;
+
+            margin-bottom:
+                12px;
+        }
+
+
+        .ocr-header strong {
+
+            font-size:
+                12px;
+        }
+
+
+        .ocr-confidence {
+
+            padding:
+                5px 8px;
+
+            border-radius:
+                999px;
+
+            background:
+                var(--success-soft);
+
+            color:
+                var(--success);
+
+            font-size:
+                9px;
+
+            font-weight:
+                850;
+        }
+
+
+        .ocr-text {
+
+            font-family:
+                Consolas,
+                "Courier New",
+                monospace;
+
+            font-size:
+                11px;
+
+            line-height:
+                1.75;
+
+            color:
+                var(--text-light);
+
+            white-space:
+                pre-line;
+        }
+
+
+        /* =========================================================
+           RECOMMENDATION
+        ========================================================== */
+
+        .recommendation {
+
+            padding:
+                20px;
+
+            border-radius:
+                18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--mint-soft),
+                    var(--cream)
+                );
+
+            border:
+                1px solid var(--mint-bright);
+
+            margin-bottom:
+                30px;
+        }
+
+
+        .recommendation-top {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                10px;
+
+            margin-bottom:
+                8px;
+        }
+
+
+        .recommendation-icon {
+
+            width:
+                36px;
+
+            height:
+                36px;
+
+            border-radius:
+                11px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            background:
+                var(--mint);
+
+            color:
+                var(--primary);
+
+            font-size:
+                16px;
+        }
+
+
+        .recommendation strong {
+
+            font-size:
+                13px;
+        }
+
+
+        .recommendation p {
+
+            color:
+                var(--text-light);
+
+            font-size:
+                11px;
+
+            padding-left:
+                46px;
+        }
+
+
+        /* =========================================================
+           DISCLAIMER
+        ========================================================== */
+
+        .disclaimer {
+
+            padding:
+                17px 18px;
+
+            border-radius:
+                16px;
+
+            background:
+                var(--warning-soft);
+
+            border:
+                1px solid
+                rgba(184,121,32,0.20);
+
+            display:
+                flex;
+
+            align-items:
+                flex-start;
+
+            gap:
+                11px;
+
+            margin-bottom:
+                28px;
+        }
+
+
+        .disclaimer-icon {
+
+            width:
+                30px;
+
+            height:
+                30px;
+
+            border-radius:
+                9px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            background:
+                rgba(184,121,32,0.12);
+
+            color:
+                var(--warning);
+
+            font-size:
+                14px;
+
+            flex-shrink:
+                0;
+        }
+
+
+        .disclaimer strong {
+
+            display:
+                block;
+
+            font-size:
+                11px;
+
+            margin-bottom:
+                2px;
+        }
+
+
+        .disclaimer p {
+
+            color:
+                var(--text-light);
+
+            font-size:
+                10px;
+
+            line-height:
+                1.55;
+        }
+
+
+        /* =========================================================
+           REPORT FOOTER
+        ========================================================== */
+
+        .report-footer {
+
+            padding:
+                20px 34px;
+
+            border-top:
+                1px solid var(--border);
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            gap:
+                20px;
+
+            background:
+                var(--cream-dark);
+        }
+
+
+        .report-footer span {
+
+            color:
+                var(--text-muted);
+
+            font-size:
+                10px;
+        }
+
+
+        .report-footer strong {
+
+            color:
+                var(--primary);
+
+            font-size:
+                11px;
+        }
+
+
+        /* =========================================================
+           BOTTOM ACTIONS
+        ========================================================== */
+
+        .bottom-actions {
+
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+
+            margin-top:
+                25px;
+
+            flex-wrap:
+                wrap;
+        }
+
+
+        .bottom-actions .btn {
+
+            min-width:
+                150px;
+        }
+
+
+        /* =========================================================
+           TOAST
+        ========================================================== */
+
+        .toast {
+
+            position:
+                fixed;
+
+            right:
+                25px;
+
+            bottom:
+                25px;
+
+            z-index:
+                3000;
+
+            min-width:
+                270px;
+
+            max-width:
+                360px;
+
+            padding:
+                14px 16px;
+
+            border-radius:
+                14px;
+
+            background:
+                var(--text);
+
+            color:
+                var(--cream);
+
+            box-shadow:
+                var(--shadow-lg);
+
+            font-size:
+                12px;
+
+            transform:
+                translateY(120px);
+
+            opacity:
+                0;
+
+            pointer-events:
+                none;
+
+            transition:
+                0.3s ease;
+        }
+
+
+        .toast.show {
+
+            transform:
+                translateY(0);
+
+            opacity:
+                1;
+        }
+
+
+        /* =========================================================
+           MOBILE
+        ========================================================== */
+
+        @media (max-width: 900px) {
+
+            .nav-links {
+
+                position:
+                    fixed;
+
+                top:
+                    78px;
+
+                left:
+                    4%;
+
+                width:
+                    92%;
+
+                display:
+                    none;
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    stretch;
+
+                gap:
+                    0;
+
+                padding:
+                    12px;
+
+                background:
+                    var(--card-bg);
+
+                border:
+                    1px solid var(--border);
+
+                border-radius:
+                    18px;
+
+                box-shadow:
+                    var(--shadow-md);
+
+                backdrop-filter:
+                    blur(18px);
+            }
+
+
+            .nav-links.active {
+                display:
+                    flex;
+            }
+
+
+            .nav-links a {
+
+                padding:
+                    13px;
+
+                border-radius:
+                    10px;
+            }
+
+
+            .nav-links a:hover {
+
+                background:
+                    var(--mint-soft);
+            }
+
+
+            .nav-links a::after {
+                display:
+                    none;
+            }
+
+
+            .mobile-menu {
+
+                display:
+                    flex;
+
+                align-items:
+                    center;
+
+                justify-content:
+                    center;
+            }
+
+
+            .nav-container {
+                gap:
+                    10px;
+            }
+
+
+            .report-meta {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .summary-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .evidence-grid {
+
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+
+            .page-header {
+
+                align-items:
+                    flex-start;
+
+                flex-direction:
+                    column;
+            }
+
+
+            .header-actions {
+
+                justify-content:
+                    flex-start;
+            }
+        }
+
+
+        @media (max-width: 650px) {
+
+            .page {
+
+                width:
+                    94%;
+
+                padding-top:
+                    110px;
+            }
+
+
+            .logo-text {
+                font-size:
+                    19px;
+            }
+
+
+            .nav-actions {
+                gap:
+                    6px;
+            }
+
+
+            .profile-button,
+            .theme-toggle,
+            .mobile-menu {
+
+                width:
+                    39px;
+
+                height:
+                    39px;
+            }
+
+
+            .report-cover {
+
+                padding:
+                    23px;
+            }
+
+
+            .report-body {
+
+                padding:
+                    22px;
+            }
+
+
+            .report-footer {
+
+                padding:
+                    18px 22px;
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    flex-start;
+            }
+
+
+            .report-meta {
+
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+
+            .score-layout {
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    flex-start;
+            }
+
+
+            .score-circle {
+
+                width:
+                    110px;
+
+                height:
+                    110px;
+            }
+
+
+            .score-circle::before {
+
+                width:
+                    82px;
+
+                height:
+                    82px;
+            }
+
+
+            .product-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .product-field:nth-child(odd) {
+
+                border-right:
+                    none;
+            }
+
+
+            .product-field:nth-last-child(-n+2) {
+
+                border-bottom:
+                    1px solid var(--border);
+            }
+
+
+            .product-field:last-child {
+
+                border-bottom:
+                    none;
+            }
+
+
+            .evidence-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .finding {
+
+                grid-template-columns:
+                    40px 1fr;
+            }
+
+
+            .finding-tag {
+
+                grid-column:
+                    2;
+
+                justify-self:
+                    start;
+            }
+
+
+            .compliance-table {
+
+                min-width:
+                    700px;
+            }
+
+
+            .table-wrapper {
+
+                overflow-x:
+                    auto;
+            }
+
+
+            .bottom-actions {
+
+                flex-direction:
+                    column;
+            }
+
+
+            .bottom-actions .btn {
+
+                width:
+                    100%;
+            }
+        }
+
+
+        /* =========================================================
+           PRINT
+        ========================================================== */
+
+        @media print {
+
+            body {
+
+                background:
+                    white !important;
+
+                color:
+                    #17352d !important;
+            }
+
+
+            .navbar,
+            .background-decoration,
+            .page-header,
+            .bottom-actions,
+            .toast {
+
+                display:
+                    none !important;
+            }
+
+
+            .page {
+
+                width:
+                    100%;
+
+                padding:
+                    0;
+            }
+
+
+            .report-paper {
+
+                box-shadow:
+                    none;
+
+                border:
+                    none;
+
+                border-radius:
+                    0;
+            }
+
+
+            .report-cover {
+
+                break-inside:
+                    avoid;
+            }
+
+
+            .section-title,
+            .summary-card,
+            .product-section,
+            .compliance-section,
+            .findings-section,
+            .evidence-section,
+            .ocr-section,
+            .recommendation,
+            .disclaimer {
+
+                break-inside:
+                    avoid;
+            }
+
+
+            .report-footer {
+
+                margin-top:
+                    20px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =========================================================
+         BACKGROUND
+    ========================================================== -->
+
+    <div class="background-decoration blob-one"></div>
+    <div class="background-decoration blob-two"></div>
+
+
+    <!-- =========================================================
+         NAVBAR
+    ========================================================== -->
+
+    <header class="navbar" id="navbar">
+
+        <div class="nav-container">
+
+            <!-- Logo -->
+
+            <a href="dashboard.html" class="logo">
+
+                <div class="logo-icon">
+                    <span>🛡️</span>
+                </div>
+
+                <div class="logo-text">
+                    Veri<span>Shield</span>
+                </div>
+
+            </a>
+
+
+            <!-- Navigation -->
+
+            <nav class="nav-links" id="navLinks">
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="scan.html">
+                    Scan
+                </a>
+
+                <a href="history.html">
+                    History
+                </a>
+
+                <a href="report.html" class="active">
+                    Reports
+                </a>
+
+            </nav>
+
+
+            <!-- Actions -->
+
+            <div class="nav-actions">
+
+                <button
+                    type="button"
+                    id="themeToggle"
+                    class="theme-toggle"
+                    title="Switch to Night / Dark Mode"
+                    aria-label="Switch to Night / Dark Mode"
+                >
+                    🌙
+                </button>
+
+
+                <button
+                    type="button"
+                    class="profile-button"
+                    id="profileButton"
+                    title="Open Profile"
+                    aria-label="Open Profile"
+                >
+                    PP
+                </button>
+
+
+                <button
+                    type="button"
+                    class="mobile-menu"
+                    id="mobileMenu"
+                    onclick="toggleMobileMenu()"
+                    aria-label="Open navigation menu"
+                >
+                    ☰
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================================
+         MAIN
+    ========================================================== -->
+
+    <main class="page">
+
+
+        <!-- =====================================================
+             PAGE HEADER
+        ====================================================== -->
+
+        <section class="page-header">
+
+            <div class="page-heading">
+
+                <div class="eyebrow">
+
+                    <span class="eyebrow-dot"></span>
+
+                    DIGITAL COMPLIANCE REPORT
+
+                </div>
+
+
+                <h1>
+                    Screening <span>Report</span>
+                </h1>
+
+
+                <p>
+                    Review the extracted package information,
+                    applicable checks, potential findings and
+                    supporting evidence from this preliminary
+                    compliance screening.
+                </p>
+
+            </div>
+
+
+            <div class="header-actions">
+
+                <button
+                    class="btn btn-outline"
+                    onclick="goToHistory()"
+                >
+                    ← History
+                </button>
+
+
+                <button
+                    class="btn btn-primary"
+                    onclick="printReport()"
+                >
+                    🖨 Print Report
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             REPORT PAPER
+        ====================================================== -->
+
+        <section class="report-paper" id="reportPaper">
+
+
+            <!-- =================================================
+                 COVER
+            ================================================== -->
+
+            <div class="report-cover">
+
+                <div class="cover-top">
+
+                    <div class="report-brand">
+
+                        <div class="report-brand-icon">
+                            🛡️
+                        </div>
+
+
+                        <div class="report-brand-text">
+
+                            <strong>
+                                VeriShield
+                            </strong>
+
+                            <span>
+                                Preliminary Compliance
+                                Screening System
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="report-status">
+                        PRELIMINARY SCREENING
+                    </div>
+
+                </div>
+
+
+                <div class="report-cover-content">
+
+                    <h2>
+                        Package Compliance
+                        Screening Report
+                    </h2>
+
+
+                    <p>
+                        Evidence-first screening of visible
+                        package declarations using image
+                        processing, OCR, structured information
+                        extraction and supported rule-based
+                        checks.
+                    </p>
+
+                </div>
+
+
+                <!-- Metadata -->
+
+                <div class="report-meta">
+
+                    <div class="meta-card">
+
+                        <small>
+                            Report ID
+                        </small>
+
+                        <strong id="reportId">
+                            VS-2026-0001
+                        </strong>
+
+                    </div>
+
+
+                    <div class="meta-card">
+
+                        <small>
+                            Scan Date
+                        </small>
+
+                        <strong id="reportDate">
+                            16 Sep 2026
+                        </strong>
+
+                    </div>
+
+
+                    <div class="meta-card">
+
+                        <small>
+                            Scan Type
+                        </small>
+
+                        <strong>
+                            Package Image
+                        </strong>
+
+                    </div>
+
+
+                    <div class="meta-card">
+
+                        <small>
+                            Engine
+                        </small>
+
+                        <strong>
+                            OCR + Rules
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 REPORT BODY
+            ================================================== -->
+
+            <div class="report-body">
+
+
+                <!-- =================================================
+                     SCREENING SUMMARY
+                ================================================== -->
+
+                <section>
+
+                    <div class="section-title">
+
+                        <div class="section-title-left">
+
+                            <div class="section-icon">
+                                📊
+                            </div>
+
+                            <h3>
+                                Screening Summary
+                            </h3>
+
+                        </div>
+
+                        <span>
+                            OVERVIEW
+                        </span>
+
+                    </div>
+
+
+                    <div class="summary-grid">
+
+
+                        <!-- Score -->
+
+                        <div class="summary-card">
+
+                            <h4>
+                                Overall Screening Result
+                            </h4>
+
+
+                            <div class="score-layout">
+
+                                <div class="score-circle">
+
+                                    <strong id="scoreValue">
+                                        82%
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="score-info">
+
+                                    <strong id="resultStatus">
+                                        Review Required
+                                    </strong>
+
+                                    <p id="resultDescription">
+                                        Most supported package
+                                        declarations were detected.
+                                        One or more findings require
+                                        review before a final
+                                        compliance decision.
+                                    </p>
+
+
+                                    <span class="score-badge">
+                                        PRELIMINARY RESULT
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Statistics -->
+
+                        <div class="summary-card">
+
+                            <h4>
+                                Check Statistics
+                            </h4>
+
+
+                            <div class="stat-grid">
+
+                                <div class="stat-box">
+
+                                    <small>
+                                        Checked
+                                    </small>
+
+                                    <strong id="checkedCount">
+                                        6
+                                    </strong>
+
+                                    <span>
+                                        supported fields
+                                    </span>
+
+                                </div>
+
+
+                                <div class="stat-box">
+
+                                    <small>
+                                        Detected
+                                    </small>
+
+                                    <strong id="detectedCount">
+                                        5
+                                    </strong>
+
+                                    <span>
+                                        declarations
+                                    </span>
+
+                                </div>
+
+
+                                <div class="stat-box">
+
+                                    <small>
+                                        Review
+                                    </small>
+
+                                    <strong id="reviewCount">
+                                        1
+                                    </strong>
+
+                                    <span>
+                                        manual verification
+                                    </span>
+
+                                </div>
+
+
+                                <div class="stat-box">
+
+                                    <small>
+                                        Confidence
+                                    </small>
+
+                                    <strong id="confidenceValue">
+                                        91%
+                                    </strong>
+
+                                    <span>
+                                        extraction confidence
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     PRODUCT INFORMATION
+                ================================================== -->
+
+                <section class="product-section">
+
+                    <div class="section-title">
+
+                        <div class="section-title-left">
+
+                            <div class="section-icon">
+                                📦
+                            </div>
+
+                            <h3>
+                                Product Information
+                            </h3>
+
+                        </div>
+
+                        <span>
+                            EXTRACTED DATA
+                        </span>
+
+                    </div>
+
+
+                    <div class="product-grid">
+
+
+                        <div class="product-field">
+
+                            <small>
+                                Product Name
+                            </small>
+
+                            <strong id="productName">
+                                ABC Premium Biscuits
+                            </strong>
+
+                        </div>
+
+
+                        <div class="product-field">
+
+                            <small>
+                                Category
+                            </small>
+
+                            <strong id="productCategory">
+                                Packaged Food
+                            </strong>
+
+                        </div>
+
+
+                        <div class="product-field">
+
+                            <small>
+                                Manufacturer
+                            </small>
+
+                            <strong id="manufacturer">
+                                ABC Foods Pvt. Ltd.
+                            </strong>
+
+                        </div>
+
+
+                        <div class="product-field">
+
+                            <small>
+                                Manufacturer Address
+                            </small>
+
+                            <strong id="manufacturerAddress">
+                                Hyderabad, Telangana, India
+                            </strong>
+
+                        </div>
+
+
+                        <div class="product-field">
+
+                            <small>
+                                Net Quantity
+                            </small>
+
+                            <strong id="netQuantity">
+                                200 g
+                            </strong>
+
+                        </div>
+
+
+                        <div class="product-field">
+
+                            <small>
+                                MRP
+                            </small>
+
+                            <strong id="mrp">
+                                ₹50.00
+                            </strong>
+
+                        </div>
+
+
+                        <div class="product-field">
+
+                            <small>
+                                Date / Batch Information
+                            </small>
+
+                            <strong id="dateInfo">
+                                Detected
+                            </strong>
+
+                        </div>
+
+
+                        <div class="product-field">
+
+                            <small>
+                                Consumer Care
+                            </small>
+
+                            <strong id="consumerCare">
+                                Detected
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     COMPLIANCE CHECKS
+                ================================================== -->
+
+                <section class="compliance-section">
+
+                    <div class="section-title">
+
+                        <div class="section-title-left">
+
+                            <div class="section-icon">
+                                ⚖️
+                            </div>
+
+                            <h3>
+                                Compliance Checks
+                            </h3>
+
+                        </div>
+
+                        <span>
+                            RULE ENGINE
+                        </span>
+
+                    </div>
+
+
+                    <div class="table-wrapper">
+
+                        <table class="compliance-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Rule
+                                    </th>
+
+                                    <th>
+                                        Declaration
+                                    </th>
+
+                                    <th>
+                                        Extracted Value
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="complianceTableBody">
+
+
+                                <tr>
+
+                                    <td>
+                                        <span class="rule-id">
+                                            LM-001
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="field-name">
+                                            Manufacturer Details
+                                        </span>
+                                    </td>
+
+                                    <td class="field-value">
+                                        ABC Foods Pvt. Ltd.
+                                    </td>
+
+                                    <td>
+                                        <span
+                                            class="status status-pass"
+                                        >
+                                            ✓ DETECTED
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        <span class="rule-id">
+                                            LM-002
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="field-name">
+                                            Net Quantity
+                                        </span>
+                                    </td>
+
+                                    <td class="field-value">
+                                        200 g
+                                    </td>
+
+                                    <td>
+                                        <span
+                                            class="status status-pass"
+                                        >
+                                            ✓ DETECTED
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        <span class="rule-id">
+                                            LM-003
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="field-name">
+                                            MRP Declaration
+                                        </span>
+                                    </td>
+
+                                    <td class="field-value">
+                                        ₹50.00
+                                    </td>
+
+                                    <td>
+                                        <span
+                                            class="status status-pass"
+                                        >
+                                            ✓ DETECTED
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        <span class="rule-id">
+                                            LM-004
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="field-name">
+                                            Date / Batch Details
+                                        </span>
+                                    </td>
+
+                                    <td class="field-value">
+                                        Detected
+                                    </td>
+
+                                    <td>
+                                        <span
+                                            class="status status-pass"
+                                        >
+                                            ✓ DETECTED
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        <span class="rule-id">
+                                            LM-005
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="field-name">
+                                            Consumer Care Details
+                                        </span>
+                                    </td>
+
+                                    <td class="field-value">
+                                        Detected
+                                    </td>
+
+                                    <td>
+                                        <span
+                                            class="status status-pass"
+                                        >
+                                            ✓ DETECTED
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        <span class="rule-id">
+                                            LM-006
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <span class="field-name">
+                                            Readability / Font Review
+                                        </span>
+                                    </td>
+
+                                    <td class="field-value">
+                                        Requires visual verification
+                                    </td>
+
+                                    <td>
+                                        <span
+                                            class="status status-review"
+                                        >
+                                            ! REVIEW
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     POTENTIAL FINDINGS
+                ================================================== -->
+
+                <section class="findings-section">
+
+                    <div class="section-title">
+
+                        <div class="section-title-left">
+
+                            <div class="section-icon">
+                                🔎
+                            </div>
+
+                            <h3>
+                                Potential Findings
+                            </h3>
+
+                        </div>
+
+                        <span>
+                            REVIEW ITEMS
+                        </span>
+
+                    </div>
+
+
+                    <div class="finding-list">
+
+
+                        <div class="finding">
+
+                            <div class="finding-icon">
+                                !
+                            </div>
+
+
+                            <div class="finding-content">
+
+                                <strong>
+                                    Readability / Font Review
+                                </strong>
+
+                                <p>
+                                    Text was detected, but visual
+                                    readability or applicable
+                                    declaration-size requirements
+                                    should be manually verified
+                                    from the original package image.
+                                </p>
+
+                            </div>
+
+
+                            <div class="finding-tag">
+                                MANUAL REVIEW
+                            </div>
+
+                        </div>
+
+
+                        <div class="finding">
+
+                            <div class="finding-icon">
+                                ✓
+                            </div>
+
+
+                            <div class="finding-content">
+
+                                <strong>
+                                    Required Information Detected
+                                </strong>
+
+                                <p>
+                                    Supported manufacturer,
+                                    quantity, MRP and other
+                                    configured declarations were
+                                    detected in the scanned image.
+                                </p>
+
+                            </div>
+
+
+                            <div
+                                class="finding-tag"
+                                style="
+                                    background:var(--success-soft);
+                                    color:var(--success);
+                                "
+                            >
+                                DETECTED
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     EVIDENCE
+                ================================================== -->
+
+                <section class="evidence-section">
+
+                    <div class="section-title">
+
+                        <div class="section-title-left">
+
+                            <div class="section-icon">
+                                🧾
+                            </div>
+
+                            <h3>
+                                Evidence Summary
+                            </h3>
+
+                        </div>
+
+                        <span>
+                            TRACEABILITY
+                        </span>
+
+                    </div>
+
+
+                    <div class="evidence-grid">
+
+
+                        <div class="evidence-card">
+
+                            <div class="evidence-icon">
+                                📸
+                            </div>
+
+                            <h4>
+                                Source Image
+                            </h4>
+
+                            <p>
+                                Findings are associated with the
+                                scanned package image used during
+                                this screening.
+                            </p>
+
+                        </div>
+
+
+                        <div class="evidence-card">
+
+                            <div class="evidence-icon">
+                                🔤
+                            </div>
+
+                            <h4>
+                                OCR Evidence
+                            </h4>
+
+                            <p>
+                                Visible package text was processed
+                                and mapped into structured fields
+                                for further checking.
+                            </p>
+
+                        </div>
+
+
+                        <div class="evidence-card">
+
+                            <div class="evidence-icon">
+                                ⚖️
+                            </div>
+
+                            <h4>
+                                Rule Evidence
+                            </h4>
+
+                            <p>
+                                Each supported check is associated
+                                with a configured rule identifier
+                                and screening result.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     OCR TEXT
+                ================================================== -->
+
+                <section class="ocr-section">
+
+                    <div class="section-title">
+
+                        <div class="section-title-left">
+
+                            <div class="section-icon">
+                                🔤
+                            </div>
+
+                            <h3>
+                                Extracted OCR Text
+                            </h3>
+
+                        </div>
+
+                        <span>
+                            SOURCE TEXT
+                        </span>
+
+                    </div>
+
+
+                    <div class="ocr-box">
+
+                        <div class="ocr-header">
+
+                            <strong>
+                                Text detected from package image
+                            </strong>
+
+                            <span class="ocr-confidence">
+                                OCR CONFIDENCE 91%
+                            </span>
+
+                        </div>
+
+
+                        <div class="ocr-text" id="ocrText">
+ABC PREMIUM BISCUITS
+
+Manufactured by:
+ABC Foods Pvt. Ltd.
+Hyderabad, Telangana, India
+
+Net Quantity: 200 g
+
+MRP ₹50.00
+(Inclusive of all taxes)
+
+Batch No: AB1234
+
+Date information detected.
+
+Consumer Care:
+1800-000-000
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     RECOMMENDATION
+                ================================================== -->
+
+                <section class="recommendation">
+
+                    <div class="recommendation-top">
+
+                        <div class="recommendation-icon">
+                            💡
+                        </div>
+
+                        <strong>
+                            Screening Recommendation
+                        </strong>
+
+                    </div>
+
+
+                    <p>
+                        Review the highlighted readability item
+                        against the original package image before
+                        making a final compliance determination.
+                        The current result represents preliminary
+                        screening and not legal certification.
+                    </p>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     DISCLAIMER
+                ================================================== -->
+
+                <section class="disclaimer">
+
+                    <div class="disclaimer-icon">
+                        !
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Important — Preliminary Screening Only
+                        </strong>
+
+                        <p>
+                            VeriShield is designed to assist
+                            preliminary package and label screening.
+                            It does not provide legal certification
+                            or replace inspection, legal
+                            interpretation or final decisions by
+                            the appropriate authority or qualified
+                            professional. OCR and visual findings
+                            may require manual verification.
+                        </p>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 REPORT FOOTER
+            ================================================== -->
+
+            <footer class="report-footer">
+
+                <span>
+                    © 2026 VeriShield
+                </span>
+
+
+                <strong>
+                    Preliminary Compliance Screening System
+                </strong>
+
+
+                <span id="generatedTime">
+                    Generated digitally
+                </span>
+
+            </footer>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             BOTTOM ACTIONS
+        ====================================================== -->
+
+        <div class="bottom-actions">
+
+            <button
+                class="btn btn-outline"
+                onclick="goToDashboard()"
+            >
+                ← Dashboard
+            </button>
+
+
+            <button
+                class="btn btn-outline"
+                onclick="goToScan()"
+            >
+                📷 New Scan
+            </button>
+
+
+            <button
+                class="btn btn-primary"
+                onclick="printReport()"
+            >
+                🖨 Print / Save PDF
+            </button>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =========================================================
+         TOAST
+    ========================================================== -->
+
+    <div
+        class="toast"
+        id="toast"
+    ></div>
+
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+
+    <script>
+
+        /* =====================================================
+           THEME
+        ====================================================== */
+
+        const themeToggle =
+            document.getElementById("themeToggle");
+
+
+        function updateThemeButton() {
+
+            const isDark =
+                document.documentElement
+                    .classList
+                    .contains("dark-mode");
+
+
+            if (isDark) {
+
+                themeToggle.textContent =
+                    "☀️";
+
+                themeToggle.title =
+                    "Switch to Day / Light Mode";
+
+                themeToggle.setAttribute(
+                    "aria-label",
+                    "Switch to Day / Light Mode"
+                );
+
+            } else {
+
+                themeToggle.textContent =
+                    "🌙";
+
+                themeToggle.title =
+                    "Switch to Night / Dark Mode";
+
+                themeToggle.setAttribute(
+                    "aria-label",
+                    "Switch to Night / Dark Mode"
+                );
+            }
+        }
+
+
+        updateThemeButton();
+
+
+        themeToggle.addEventListener(
+            "click",
+            function () {
+
+                const isDark =
+                    document.documentElement
+                        .classList
+                        .toggle("dark-mode");
+
+
+                localStorage.setItem(
+                    "verishield_theme",
+                    isDark
+                        ? "dark"
+                        : "light"
+                );
+
+
+                updateThemeButton();
+            }
+        );
+
+
+
+        /* =====================================================
+           MOBILE MENU
+        ====================================================== */
+
+        function toggleMobileMenu() {
+
+            const navLinks =
+                document.getElementById(
+                    "navLinks"
+                );
+
+            navLinks.classList.toggle(
+                "active"
+            );
+        }
+
+
+        document
+            .querySelectorAll(".nav-links a")
+            .forEach(
+                link => {
+
+                    link.addEventListener(
+                        "click",
+                        function () {
+
+                            document
+                                .getElementById(
+                                    "navLinks"
+                                )
+                                .classList
+                                .remove(
+                                    "active"
+                                );
+                        }
+                    );
+                }
+            );
+
+
+        document.addEventListener(
+            "click",
+            function (event) {
+
+                const nav =
+                    document.getElementById(
+                        "navLinks"
+                    );
+
+                const menu =
+                    document.getElementById(
+                        "mobileMenu"
+                    );
+
+
+                if (
+                    nav.classList.contains("active") &&
+                    !nav.contains(event.target) &&
+                    !menu.contains(event.target)
+                ) {
+
+                    nav.classList.remove(
+                        "active"
+                    );
+                }
+            }
+        );
+
+
+
+        /* =====================================================
+           PROFILE
+        ====================================================== */
+
+        document
+            .getElementById("profileButton")
+            .addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "profile.html";
+                }
+            );
+
+
+
+        /* =====================================================
+           NAVIGATION
+        ====================================================== */
+
+        function goToDashboard() {
+
+            window.location.href =
+                "dashboard.html";
+        }
+
+
+        function goToScan() {
+
+            window.location.href =
+                "scan.html";
+        }
+
+
+        function goToHistory() {
+
+            window.location.href =
+                "history.html";
+        }
+
+
+
+        /* =====================================================
+           TOAST
+        ====================================================== */
+
+        function showToast(message) {
+
+            const toast =
+                document.getElementById(
+                    "toast"
+                );
+
+
+            toast.textContent =
+                message;
+
+
+            toast.classList.add(
+                "show"
+            );
+
+
+            clearTimeout(
+                window.veriShieldToastTimer
+            );
+
+
+            window.veriShieldToastTimer =
+                setTimeout(
+                    function () {
+
+                        toast.classList.remove(
+                            "show"
+                        );
+
+                    },
+                    2800
+                );
+        }
+
+
+
+        /* =====================================================
+           PRINT REPORT
+        ====================================================== */
+
+        function printReport() {
+
+            showToast(
+                "Opening print / PDF options..."
+            );
+
+
+            setTimeout(
+                function () {
+
+                    window.print();
+
+                },
+                350
+            );
+        }
+
+
+
+        /* =====================================================
+           CURRENT DATE
+        ====================================================== */
+
+        function updateGeneratedTime() {
+
+            const generatedTime =
+                document.getElementById(
+                    "generatedTime"
+                );
+
+
+            const now =
+                new Date();
+
+
+            const date =
+                now.toLocaleDateString(
+                    "en-IN",
+                    {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric"
+                    }
+                );
+
+
+            const time =
+                now.toLocaleTimeString(
+                    "en-IN",
+                    {
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    }
+                );
+
+
+            generatedTime.textContent =
+                "Generated " +
+                date +
+                " • " +
+                time;
+        }
+
+
+        updateGeneratedTime();
+
+
+
+        /* =====================================================
+           REPORT ID
+        ====================================================== */
+
+        function generateReportId() {
+
+            const existing =
+                localStorage.getItem(
+                    "verishield_report_id"
+                );
+
+
+            if (existing) {
+
+                document.getElementById(
+                    "reportId"
+                ).textContent =
+                    existing;
+
+                return;
+            }
+
+
+            const randomNumber =
+                Math.floor(
+                    1000 +
+                    Math.random() * 9000
+                );
+
+
+            const id =
+                "VS-2026-" +
+                randomNumber;
+
+
+            localStorage.setItem(
+                "verishield_report_id",
+                id
+            );
+
+
+            document.getElementById(
+                "reportId"
+            ).textContent =
+                id;
+        }
+
+
+        generateReportId();
+
+
+
+        /* =====================================================
+           REPORT DATE
+        ====================================================== */
+
+        function updateReportDate() {
+
+            const reportDate =
+                document.getElementById(
+                    "reportDate"
+                );
+
+
+            const storedDate =
+                localStorage.getItem(
+                    "verishield_scan_date"
+                );
+
+
+            if (storedDate) {
+
+                reportDate.textContent =
+                    storedDate;
+
+                return;
+            }
+
+
+            const now =
+                new Date();
+
+
+            reportDate.textContent =
+                now.toLocaleDateString(
+                    "en-IN",
+                    {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric"
+                    }
+                );
+        }
+
+
+        updateReportDate();
+
+
+
+        /* =====================================================
+           LOAD USER DATA
+        ====================================================== */
+
+        function loadUserProfile() {
+
+            const name =
+                localStorage.getItem(
+                    "verishield_user_name"
+                );
+
+
+            const profileButton =
+                document.getElementById(
+                    "profileButton"
+                );
+
+
+            if (name) {
+
+                const parts =
+                    name.trim().split(
+                        /\s+/
+                    );
+
+
+                let initials = "";
+
+
+                if (parts.length >= 2) {
+
+                    initials =
+                        parts[0].charAt(0) +
+                        parts[
+                            parts.length - 1
+                        ].charAt(0);
+
+                } else {
+
+                    initials =
+                        parts[0]
+                            .substring(0,2);
+                }
+
+
+                profileButton.textContent =
+                    initials.toUpperCase();
+            }
+        }
+
+
+        loadUserProfile();
+
+
+
+        /* =====================================================
+           LOAD DEMO SCAN RESULT
+        ====================================================== */
+
+        function loadScanResult() {
+
+            const storedResult =
+                localStorage.getItem(
+                    "verishield_scan_result"
+                );
+
+
+            if (!storedResult) {
+
+                return;
+            }
+
+
+            try {
+
+                const data =
+                    JSON.parse(
+                        storedResult
+                    );
+
+
+                /* Product */
+
+                if (
+                    data.product &&
+                    data.product.name
+                ) {
+
+                    document.getElementById(
+                        "productName"
+                    ).textContent =
+                        data.product.name;
+                }
+
+
+                if (
+                    data.product &&
+                    data.product.category
+                ) {
+
+                    document.getElementById(
+                        "productCategory"
+                    ).textContent =
+                        data.product.category;
+                }
+
+
+                /* Score */
+
+                if (
+                    typeof data.score !==
+                    "undefined"
+                ) {
+
+                    document.getElementById(
+                        "scoreValue"
+                    ).textContent =
+                        data.score + "%";
+                }
+
+
+                /* Status */
+
+                if (data.status) {
+
+                    const status =
+                        String(
+                            data.status
+                        ).toUpperCase();
+
+
+                    if (
+                        status === "PASS"
+                    ) {
+
+                        document.getElementById(
+                            "resultStatus"
+                        ).textContent =
+                            "Screening Passed";
+
+                    } else if (
+                        status === "FAIL"
+                    ) {
+
+                        document.getElementById(
+                            "resultStatus"
+                        ).textContent =
+                            "Potential Issues Found";
+
+                    } else {
+
+                        document.getElementById(
+                            "resultStatus"
+                        ).textContent =
+                            "Review Required";
+                    }
+                }
+
+
+                /* Scan ID */
+
+                if (data.scan_id) {
+
+                    document.getElementById(
+                        "reportId"
+                    ).textContent =
+                        data.scan_id;
+                }
+
+
+            } catch (error) {
+
+                console.log(
+                    "No structured scan result found."
+                );
+            }
+        }
+
+
+        loadScanResult();
+
+
+
+        /* =====================================================
+           NAVBAR SHADOW
+        ====================================================== */
+
+        const navbar =
+            document.getElementById(
+                "navbar"
+            );
+
+
+        window.addEventListener(
+            "scroll",
+            function () {
+
+                if (
+                    window.scrollY > 20
+                ) {
+
+                    navbar.style.boxShadow =
+                        "0 8px 30px rgba(23,107,87,0.08)";
+
+                } else {
+
+                    navbar.style.boxShadow =
+                        "none";
+                }
+            }
+        );
+
+
+
+        /* =====================================================
+           KEYBOARD SHORTCUT
+        ====================================================== */
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.ctrlKey &&
+                    event.key.toLowerCase() === "p"
+                ) {
+
+                    event.preventDefault();
+
+                    printReport();
+                }
+            }
+        );
+
+    </script>
+
+</body>
+</html>

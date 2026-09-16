@@ -1,0 +1,5266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>VeriShield | Scan Package</title>
+
+    <meta
+        name="description"
+        content="Scan packaged commodity labels and perform preliminary Legal Metrology compliance screening with VeriShield."
+    >
+
+    <!-- =========================================================
+         APPLY SAVED THEME BEFORE PAGE LOAD
+    ========================================================== -->
+
+    <script>
+        if (
+            localStorage.getItem("verishield_theme") === "dark"
+        ) {
+            document.documentElement.classList.add("dark-mode");
+        }
+    </script>
+
+
+    <style>
+
+        /* =========================================================
+           VERISHIELD SCAN PAGE
+           Same visual language as approved index.html
+           Emerald + Mint + Warm Cream
+           No Blue / No Red
+        ========================================================= */
+
+
+        :root {
+
+            --primary: #176b57;
+            --primary-dark: #0d4f40;
+            --primary-light: #2f9278;
+
+            --mint: #dff4eb;
+            --mint-soft: #eefaf5;
+            --mint-bright: #c9eee0;
+
+            --cream: #fbfaf5;
+            --cream-dark: #f4f1e8;
+
+            --text: #17352d;
+            --text-light: #61746e;
+            --text-muted: #82918c;
+
+            --white: #ffffff;
+
+            --success: #23835f;
+            --success-soft: #e3f5ec;
+
+            --warning: #b87920;
+            --warning-soft: #fff1d8;
+
+            --border: #dce8e2;
+
+            --card-bg: rgba(255, 255, 255, 0.88);
+
+            --nav-bg: rgba(
+                251,
+                250,
+                245,
+                0.88
+            );
+
+            --input-bg: #ffffff;
+
+            --shadow-sm:
+                0 6px 20px rgba(
+                    23,
+                    107,
+                    87,
+                    0.07
+                );
+
+            --shadow-md:
+                0 15px 45px rgba(
+                    23,
+                    107,
+                    87,
+                    0.10
+                );
+
+            --shadow-lg:
+                0 25px 70px rgba(
+                    23,
+                    107,
+                    87,
+                    0.14
+                );
+
+            --radius-sm: 12px;
+            --radius-md: 18px;
+            --radius-lg: 28px;
+            --radius-xl: 36px;
+        }
+
+
+        /* =========================================================
+           DARK MODE
+        ========================================================== */
+
+        html.dark-mode {
+
+            --primary: #55b899;
+            --primary-dark: #2f9278;
+            --primary-light: #6cc9aa;
+
+            --mint: #183b31;
+            --mint-soft: #122d26;
+            --mint-bright: #285747;
+
+            --cream: #0d1714;
+            --cream-dark: #14211d;
+
+            --text: #e6f2ed;
+            --text-light: #b2c7bf;
+            --text-muted: #829c93;
+
+            --white: #17231f;
+
+            --success: #65c99d;
+            --success-soft: #183b30;
+
+            --warning: #e2ae62;
+            --warning-soft: #3b2d1b;
+
+            --border: #29423a;
+
+            --card-bg: rgba(
+                23,
+                35,
+                31,
+                0.90
+            );
+
+            --nav-bg: rgba(
+                13,
+                23,
+                20,
+                0.90
+            );
+
+            --input-bg: #17231f;
+
+            --shadow-sm:
+                0 6px 20px rgba(
+                    0,
+                    0,
+                    0,
+                    0.18
+                );
+
+            --shadow-md:
+                0 15px 45px rgba(
+                    0,
+                    0,
+                    0,
+                    0.22
+                );
+
+            --shadow-lg:
+                0 25px 70px rgba(
+                    0,
+                    0,
+                    0,
+                    0.30
+                );
+        }
+
+
+        /* =========================================================
+           RESET
+        ========================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            font-family:
+                Inter,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            color: var(--text);
+
+            background: var(--cream);
+
+            line-height: 1.6;
+
+            min-height: 100vh;
+
+            overflow-x: hidden;
+
+            transition:
+                background 0.3s ease,
+                color 0.3s ease;
+        }
+
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+
+        button {
+            cursor: pointer;
+        }
+
+
+        /* =========================================================
+           BACKGROUND DECORATION
+        ========================================================== */
+
+        .background-decoration {
+
+            position: fixed;
+
+            z-index: -1;
+
+            pointer-events: none;
+
+            border-radius: 50%;
+        }
+
+
+        .blob-one {
+
+            width: 430px;
+            height: 430px;
+
+            right: -190px;
+            top: -170px;
+
+            background:
+                rgba(
+                    201,
+                    238,
+                    224,
+                    0.45
+                );
+        }
+
+
+        .blob-two {
+
+            width: 330px;
+            height: 330px;
+
+            left: -180px;
+            bottom: 3%;
+
+            background:
+                rgba(
+                    223,
+                    244,
+                    235,
+                    0.48
+                );
+        }
+
+
+        html.dark-mode .blob-one {
+
+            background:
+                rgba(
+                    44,
+                    107,
+                    87,
+                    0.15
+                );
+        }
+
+
+        html.dark-mode .blob-two {
+
+            background:
+                rgba(
+                    37,
+                    91,
+                    75,
+                    0.14
+                );
+        }
+
+
+        /* =========================================================
+           NAVBAR
+        ========================================================== */
+
+        .navbar {
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+
+            z-index: 1000;
+
+            background: var(--nav-bg);
+
+            backdrop-filter: blur(18px);
+
+            -webkit-backdrop-filter:
+                blur(18px);
+
+            border-bottom:
+                1px solid var(--border);
+        }
+
+
+        .nav-container {
+
+            width:
+                min(
+                    1220px,
+                    92%
+                );
+
+            height: 76px;
+
+            margin: auto;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+
+        /* =========================================================
+           LOGO
+        ========================================================== */
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            font-size: 21px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.5px;
+
+            white-space: nowrap;
+        }
+
+
+        .logo-icon {
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 14px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--primary-light),
+                    var(--primary-dark)
+                );
+
+            box-shadow:
+                0 8px 20px
+                rgba(
+                    23,
+                    107,
+                    87,
+                    0.22
+                );
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        .logo-icon::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 16px;
+            height: 16px;
+
+            border:
+                2px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.55
+                );
+
+            border-radius: 50%;
+
+            right: -5px;
+            bottom: -5px;
+        }
+
+
+        .logo-icon span {
+
+            position: relative;
+
+            z-index: 2;
+
+            font-size: 20px;
+        }
+
+
+        .logo-text {
+
+            color: var(--text);
+        }
+
+
+        .logo-text span {
+
+            color: var(--primary);
+        }
+
+
+        /* =========================================================
+           NAV LINKS
+        ========================================================== */
+
+        .nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 25px;
+        }
+
+
+        .nav-links a {
+
+            position: relative;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color: var(--text-light);
+
+            transition:
+                color 0.25s ease;
+        }
+
+
+        .nav-links a::after {
+
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+
+            bottom: -8px;
+
+            width: 0;
+            height: 2px;
+
+            border-radius: 10px;
+
+            background: var(--primary);
+
+            transition:
+                width 0.25s ease;
+        }
+
+
+        .nav-links a:hover,
+        .nav-links a.active {
+
+            color: var(--primary);
+        }
+
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+
+            width: 100%;
+        }
+
+
+        /* =========================================================
+           NAV ACTIONS
+        ========================================================== */
+
+        .nav-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+        }
+
+
+        .theme-toggle,
+        .profile-button {
+
+            width: 40px;
+            height: 40px;
+
+            border-radius: 12px;
+
+            border:
+                1px solid var(--border);
+
+            background: var(--card-bg);
+
+            color: var(--text);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            transition:
+                transform 0.25s ease,
+                background 0.25s ease;
+        }
+
+
+        .theme-toggle {
+
+            font-size: 17px;
+        }
+
+
+        .theme-toggle:hover,
+        .profile-button:hover {
+
+            transform:
+                translateY(-2px);
+
+            background:
+                var(--mint-soft);
+
+            border-color:
+                var(--mint-bright);
+        }
+
+
+        .profile-button {
+
+            color: white;
+
+            border: none;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--primary-light),
+                    var(--primary-dark)
+                );
+        }
+
+
+        .mobile-menu {
+
+            display: none;
+
+            width: 40px;
+            height: 40px;
+
+            border-radius: 12px;
+
+            border:
+                1px solid var(--border);
+
+            background: var(--card-bg);
+
+            color: var(--primary);
+
+            font-size: 19px;
+        }
+
+
+        /* =========================================================
+           PROFILE DROPDOWN
+        ========================================================== */
+
+        .profile-wrapper {
+
+            position: relative;
+        }
+
+
+        .profile-dropdown {
+
+            position: absolute;
+
+            top: 51px;
+
+            right: 0;
+
+            width: 215px;
+
+            padding: 9px;
+
+            background: var(--card-bg);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 17px;
+
+            box-shadow: var(--shadow-md);
+
+            display: none;
+
+            z-index: 1100;
+        }
+
+
+        .profile-dropdown.show {
+
+            display: block;
+
+            animation:
+                dropdownIn
+                0.18s
+                ease;
+        }
+
+
+        @keyframes dropdownIn {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(-5px);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+        .profile-head {
+
+            padding: 10px;
+
+            border-bottom:
+                1px solid var(--border);
+
+            margin-bottom: 6px;
+        }
+
+
+        .profile-head strong {
+
+            display: block;
+
+            font-size: 11px;
+        }
+
+
+        .profile-head span {
+
+            display: block;
+
+            font-size: 9px;
+
+            color: var(--text-muted);
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+
+        .dropdown-link {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            padding: 9px 10px;
+
+            border-radius: 10px;
+
+            color: var(--text-light);
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            transition:
+                background 0.2s ease,
+                color 0.2s ease;
+        }
+
+
+        .dropdown-link:hover {
+
+            background:
+                var(--mint-soft);
+
+            color:
+                var(--primary);
+        }
+
+
+        /* =========================================================
+           MOBILE NAV
+        ========================================================== */
+
+        .mobile-nav {
+
+            display: none;
+
+            position: fixed;
+
+            top: 76px;
+
+            left: 0;
+            right: 0;
+
+            z-index: 999;
+
+            padding: 14px;
+
+            background: var(--card-bg);
+
+            border-bottom:
+                1px solid var(--border);
+
+            box-shadow: var(--shadow-md);
+        }
+
+
+        .mobile-nav.show {
+
+            display: block;
+        }
+
+
+        .mobile-nav a {
+
+            display: block;
+
+            padding: 12px;
+
+            border-radius: 11px;
+
+            color: var(--text-light);
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        .mobile-nav a:hover,
+        .mobile-nav a.active {
+
+            background:
+                var(--mint-soft);
+
+            color:
+                var(--primary);
+        }
+
+
+        /* =========================================================
+           MAIN
+        ========================================================== */
+
+        .main {
+
+            width:
+                min(
+                    1220px,
+                    92%
+                );
+
+            margin: auto;
+
+            padding-top: 116px;
+
+            padding-bottom: 70px;
+        }
+
+
+        /* =========================================================
+           PAGE HEADER
+        ========================================================== */
+
+        .page-header {
+
+            margin-bottom: 25px;
+        }
+
+
+        .page-eyebrow {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 7px 12px;
+
+            border-radius: 999px;
+
+            background:
+                var(--mint-soft);
+
+            border:
+                1px solid var(--mint-bright);
+
+            color:
+                var(--primary);
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing:
+                0.7px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .page-eyebrow-dot {
+
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background:
+                var(--success);
+
+            box-shadow:
+                0 0 0 4px
+                rgba(
+                    35,
+                    131,
+                    95,
+                    0.10
+                );
+        }
+
+
+        .page-header h1 {
+
+            font-size:
+                clamp(
+                    31px,
+                    4vw,
+                    48px
+                );
+
+            line-height: 1.05;
+
+            letter-spacing:
+                -1.8px;
+
+            margin-bottom: 9px;
+        }
+
+
+        .page-header h1 span {
+
+            color:
+                var(--primary);
+        }
+
+
+        .page-header p {
+
+            color:
+                var(--text-light);
+
+            font-size: 14px;
+
+            max-width: 700px;
+        }
+
+
+        /* =========================================================
+           SCAN LAYOUT
+        ========================================================== */
+
+        .scan-layout {
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(
+                    0,
+                    1.4fr
+                )
+                minmax(
+                    320px,
+                    0.6fr
+                );
+
+            gap: 22px;
+
+            align-items: start;
+        }
+
+
+        /* =========================================================
+           MAIN UPLOAD CARD
+        ========================================================== */
+
+        .upload-card {
+
+            position: relative;
+
+            background:
+                var(--card-bg);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                var(--radius-lg);
+
+            box-shadow:
+                var(--shadow-md);
+
+            overflow: hidden;
+        }
+
+
+        .upload-card-header {
+
+            padding:
+                22px 24px 18px;
+
+            border-bottom:
+                1px solid var(--border);
+        }
+
+
+        .card-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+        }
+
+
+        .card-title-icon {
+
+            width: 38px;
+            height: 38px;
+
+            border-radius: 12px;
+
+            background:
+                var(--mint);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 18px;
+        }
+
+
+        .card-title strong {
+
+            display: block;
+
+            font-size: 14px;
+        }
+
+
+        .card-title span {
+
+            display: block;
+
+            color:
+                var(--text-muted);
+
+            font-size: 9px;
+        }
+
+
+        /* =========================================================
+           UPLOAD AREA
+        ========================================================== */
+
+        .upload-content {
+
+            padding: 24px;
+        }
+
+
+        .drop-zone {
+
+            position: relative;
+
+            min-height: 390px;
+
+            border:
+                2px dashed
+                var(--mint-bright);
+
+            border-radius:
+                23px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--mint-soft),
+                    rgba(
+                        255,
+                        255,
+                        255,
+                        0.35
+                    )
+                );
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 30px;
+
+            transition:
+                border-color 0.25s ease,
+                background 0.25s ease,
+                transform 0.25s ease;
+
+            overflow: hidden;
+        }
+
+
+        html.dark-mode .drop-zone {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #122d26,
+                    #17231f
+                );
+        }
+
+
+        .drop-zone.drag-over {
+
+            border-color:
+                var(--primary);
+
+            background:
+                var(--mint);
+
+            transform:
+                scale(1.005);
+        }
+
+
+        .drop-zone.hidden {
+
+            display: none;
+        }
+
+
+        /* =========================================================
+           UPLOAD ILLUSTRATION
+        ========================================================== */
+
+        .upload-illustration {
+
+            width: 86px;
+            height: 86px;
+
+            border-radius: 25px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--mint-bright),
+                    var(--mint)
+                );
+
+            border:
+                1px solid
+                var(--mint-bright);
+
+            box-shadow:
+                0 12px 28px
+                rgba(
+                    23,
+                    107,
+                    87,
+                    0.12
+                );
+
+            font-size: 37px;
+
+            margin-bottom: 18px;
+
+            position: relative;
+        }
+
+
+        .upload-illustration::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 12px;
+            height: 12px;
+
+            border-radius: 50%;
+
+            right: 7px;
+            top: 7px;
+
+            background:
+                var(--success);
+
+            border:
+                3px solid
+                var(--mint-soft);
+        }
+
+
+        .drop-zone h2 {
+
+            font-size: 20px;
+
+            letter-spacing:
+                -0.5px;
+
+            margin-bottom: 6px;
+        }
+
+
+        .drop-zone p {
+
+            color:
+                var(--text-light);
+
+            font-size: 11px;
+
+            max-width: 470px;
+
+            margin-bottom: 17px;
+        }
+
+
+        .drop-hint {
+
+            color:
+                var(--text-muted);
+
+            font-size: 9px;
+
+            margin-top: 12px;
+        }
+
+
+        .browse-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            padding:
+                11px 18px;
+
+            border-radius: 11px;
+
+            border: none;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary-light),
+                    var(--primary-dark)
+                );
+
+            box-shadow:
+                0 9px 22px
+                rgba(
+                    23,
+                    107,
+                    87,
+                    0.19
+                );
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .browse-button:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 13px 27px
+                rgba(
+                    23,
+                    107,
+                    87,
+                    0.25
+                );
+        }
+
+
+        #fileInput {
+
+            display: none;
+        }
+
+
+        /* =========================================================
+           CAPTURE BUTTON
+        ========================================================== */
+
+        .capture-button {
+
+            margin-top: 9px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            border: none;
+
+            background: transparent;
+
+            color:
+                var(--primary);
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            padding: 6px 9px;
+
+            border-radius: 8px;
+        }
+
+
+        .capture-button:hover {
+
+            background:
+                var(--mint);
+        }
+
+
+        /* =========================================================
+           PREVIEW
+        ========================================================== */
+
+        .preview-container {
+
+            display: none;
+
+            position: relative;
+
+            min-height: 390px;
+
+            border-radius: 23px;
+
+            overflow: hidden;
+
+            background:
+                var(--cream-dark);
+
+            border:
+                1px solid var(--border);
+        }
+
+
+        .preview-container.show {
+
+            display: block;
+        }
+
+
+        .preview-image {
+
+            width: 100%;
+
+            height: 390px;
+
+            object-fit: contain;
+
+            display: block;
+
+            background:
+                var(--cream-dark);
+        }
+
+
+        .preview-overlay {
+
+            position: absolute;
+
+            top: 14px;
+
+            left: 14px;
+
+            right: 14px;
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: flex-start;
+
+            pointer-events: none;
+        }
+
+
+        .preview-label {
+
+            padding: 7px 10px;
+
+            border-radius: 999px;
+
+            background:
+                rgba(
+                    13,
+                    79,
+                    64,
+                    0.88
+                );
+
+            color: white;
+
+            font-size: 9px;
+
+            font-weight: 800;
+        }
+
+
+        .remove-preview {
+
+            pointer-events: auto;
+
+            width: 33px;
+            height: 33px;
+
+            border-radius: 10px;
+
+            border: none;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.92
+                );
+
+            color:
+                var(--primary-dark);
+
+            font-size: 15px;
+
+            box-shadow:
+                0 5px 15px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.10
+                );
+        }
+
+
+        /* =========================================================
+           IMAGE INFORMATION
+        ========================================================== */
+
+        .image-info {
+
+            display: none;
+
+            margin-top: 12px;
+
+            padding: 12px 14px;
+
+            border-radius: 13px;
+
+            background:
+                var(--mint-soft);
+
+            border:
+                1px solid var(--mint-bright);
+        }
+
+
+        .image-info.show {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+
+            gap: 10px;
+        }
+
+
+        .image-name {
+
+            min-width: 0;
+        }
+
+
+        .image-name strong {
+
+            display: block;
+
+            font-size: 10px;
+
+            overflow: hidden;
+
+            white-space: nowrap;
+
+            text-overflow: ellipsis;
+        }
+
+
+        .image-name span {
+
+            display: block;
+
+            color:
+                var(--text-muted);
+
+            font-size: 8px;
+        }
+
+
+        .image-valid {
+
+            padding: 5px 8px;
+
+            border-radius: 999px;
+
+            background:
+                var(--success-soft);
+
+            color:
+                var(--success);
+
+            font-size: 8px;
+
+            font-weight: 800;
+
+            white-space: nowrap;
+        }
+
+
+        /* =========================================================
+           ACTION AREA
+        ========================================================== */
+
+        .upload-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+
+            gap: 10px;
+
+            margin-top: 17px;
+        }
+
+
+        .action-note {
+
+            color:
+                var(--text-muted);
+
+            font-size: 9px;
+        }
+
+
+        .action-buttons {
+
+            display: flex;
+
+            gap: 9px;
+        }
+
+
+        .btn {
+
+            border: none;
+
+            border-radius: 11px;
+
+            padding:
+                11px 17px;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                opacity 0.2s ease;
+        }
+
+
+        .btn:hover {
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        .btn-primary {
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary-light),
+                    var(--primary-dark)
+                );
+
+            box-shadow:
+                0 9px 22px
+                rgba(
+                    23,
+                    107,
+                    87,
+                    0.19
+                );
+        }
+
+
+        .btn-primary:disabled {
+
+            cursor: not-allowed;
+
+            opacity: 0.45;
+
+            transform: none;
+
+            box-shadow: none;
+        }
+
+
+        .btn-outline {
+
+            color:
+                var(--primary);
+
+            background:
+                transparent;
+
+            border:
+                1px solid var(--border);
+        }
+
+
+        .btn-outline:hover {
+
+            background:
+                var(--mint-soft);
+
+            border-color:
+                var(--mint-bright);
+        }
+
+
+        /* =========================================================
+           RIGHT SIDE INFORMATION
+        ========================================================== */
+
+        .side-column {
+
+            display: grid;
+
+            gap: 17px;
+        }
+
+
+        .info-card {
+
+            padding: 20px;
+
+            background:
+                var(--card-bg);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                var(--radius-md);
+
+            box-shadow:
+                var(--shadow-sm);
+        }
+
+
+        .info-card-header {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .info-card-icon {
+
+            width: 34px;
+            height: 34px;
+
+            border-radius: 11px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background:
+                var(--mint);
+
+            font-size: 15px;
+        }
+
+
+        .info-card-header strong {
+
+            display: block;
+
+            font-size: 12px;
+        }
+
+
+        .info-card-header span {
+
+            display: block;
+
+            color:
+                var(--text-muted);
+
+            font-size: 8px;
+        }
+
+
+        /* =========================================================
+           WHAT TO SCAN
+        ========================================================== */
+
+        .scan-list {
+
+            display: grid;
+
+            gap: 10px;
+        }
+
+
+        .scan-item {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 9px;
+        }
+
+
+        .scan-item-icon {
+
+            flex-shrink: 0;
+
+            width: 28px;
+            height: 28px;
+
+            border-radius: 9px;
+
+            background:
+                var(--mint-soft);
+
+            color:
+                var(--primary);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 11px;
+        }
+
+
+        .scan-item strong {
+
+            display: block;
+
+            font-size: 10px;
+
+            margin-bottom: 1px;
+        }
+
+
+        .scan-item span {
+
+            display: block;
+
+            color:
+                var(--text-muted);
+
+            font-size: 8px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================================================
+           PROCESS CARD
+        ========================================================== */
+
+        .process-list {
+
+            display: grid;
+
+            gap: 13px;
+        }
+
+
+        .process-step {
+
+            display: grid;
+
+            grid-template-columns:
+                30px 1fr;
+
+            gap: 9px;
+
+            position: relative;
+        }
+
+
+        .process-step:not(:last-child)::after {
+
+            content: "";
+
+            position: absolute;
+
+            left: 14px;
+
+            top: 31px;
+
+            bottom: -14px;
+
+            width: 1px;
+
+            background:
+                var(--mint-bright);
+        }
+
+
+        .process-number {
+
+            width: 29px;
+            height: 29px;
+
+            border-radius: 9px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background:
+                var(--mint);
+
+            color:
+                var(--primary);
+
+            font-size: 9px;
+
+            font-weight: 850;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        .process-step strong {
+
+            display: block;
+
+            font-size: 10px;
+
+            margin-bottom: 2px;
+        }
+
+
+        .process-step span {
+
+            display: block;
+
+            color:
+                var(--text-muted);
+
+            font-size: 8px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================================================
+           SUPPORTED IMAGE CARD
+        ========================================================== */
+
+        .supported-card {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--mint-soft),
+                    var(--card-bg)
+                );
+        }
+
+
+        .format-tags {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 7px;
+
+            margin-top: 10px;
+        }
+
+
+        .format-tag {
+
+            padding:
+                6px 9px;
+
+            border-radius: 999px;
+
+            background:
+                var(--card-bg);
+
+            border:
+                1px solid var(--border);
+
+            color:
+                var(--text-light);
+
+            font-size: 8px;
+
+            font-weight: 800;
+        }
+
+
+        /* =========================================================
+           DISCLAIMER
+        ========================================================== */
+
+        .disclaimer {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 11px;
+
+            padding:
+                15px 17px;
+
+            border-radius: 15px;
+
+            background:
+                var(--warning-soft);
+
+            border:
+                1px solid
+                rgba(
+                    184,
+                    121,
+                    32,
+                    0.18
+                );
+
+            margin-top: 22px;
+        }
+
+
+        .disclaimer-icon {
+
+            width: 30px;
+            height: 30px;
+
+            flex-shrink: 0;
+
+            border-radius: 10px;
+
+            background:
+                rgba(
+                    184,
+                    121,
+                    32,
+                    0.13
+                );
+
+            color:
+                var(--warning);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 13px;
+        }
+
+
+        .disclaimer strong {
+
+            display: block;
+
+            color:
+                var(--warning);
+
+            font-size: 10px;
+
+            margin-bottom: 2px;
+        }
+
+
+        .disclaimer p {
+
+            color:
+                var(--text-light);
+
+            font-size: 8px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================================================
+           CAMERA MODAL
+        ========================================================== */
+
+        .camera-modal {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 2000;
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            background:
+                rgba(
+                    7,
+                    20,
+                    16,
+                    0.72
+                );
+
+            backdrop-filter:
+                blur(8px);
+        }
+
+
+        .camera-modal.show {
+
+            display: flex;
+        }
+
+
+        .camera-box {
+
+            width:
+                min(
+                    600px,
+                    100%
+                );
+
+            background:
+                var(--card-bg);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 25px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 30px 90px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.30
+                );
+        }
+
+
+        .camera-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+
+            padding:
+                17px 19px;
+
+            border-bottom:
+                1px solid var(--border);
+        }
+
+
+        .camera-header strong {
+
+            font-size: 13px;
+        }
+
+
+        .close-camera {
+
+            width: 32px;
+            height: 32px;
+
+            border-radius: 10px;
+
+            border:
+                1px solid var(--border);
+
+            background:
+                var(--card-bg);
+
+            color:
+                var(--text);
+
+            font-size: 15px;
+        }
+
+
+        .camera-preview {
+
+            width: 100%;
+
+            height: 390px;
+
+            object-fit: cover;
+
+            display: block;
+
+            background:
+                #071411;
+        }
+
+
+        .camera-actions {
+
+            display: flex;
+
+            justify-content:
+                center;
+
+            gap: 10px;
+
+            padding: 17px;
+        }
+
+
+        .capture-main {
+
+            width: 52px;
+            height: 52px;
+
+            border-radius: 50%;
+
+            border:
+                5px solid
+                var(--mint-bright);
+
+            background:
+                var(--primary);
+
+            box-shadow:
+                0 7px 22px
+                rgba(
+                    23,
+                    107,
+                    87,
+                    0.25
+                );
+        }
+
+
+        /* =========================================================
+           ANALYZE OVERLAY
+        ========================================================== */
+
+        .analyze-overlay {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 3000;
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                rgba(
+                    7,
+                    20,
+                    16,
+                    0.66
+                );
+
+            backdrop-filter:
+                blur(9px);
+        }
+
+
+        .analyze-overlay.show {
+
+            display: flex;
+        }
+
+
+        .analyze-box {
+
+            width:
+                min(
+                    390px,
+                    90%
+                );
+
+            padding: 31px;
+
+            text-align: center;
+
+            background:
+                var(--card-bg);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                25px;
+
+            box-shadow:
+                var(--shadow-lg);
+        }
+
+
+        .loading-scanner {
+
+            width: 82px;
+            height: 82px;
+
+            margin: 0 auto 18px;
+
+            border-radius: 22px;
+
+            background:
+                var(--mint);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        .loading-package {
+
+            width: 39px;
+            height: 51px;
+
+            border-radius: 6px;
+
+            background:
+                var(--cream);
+
+            border:
+                1px solid var(--border);
+
+            position: relative;
+        }
+
+
+        .loading-package::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+            right: 0;
+
+            height: 10px;
+
+            background:
+                var(--primary);
+
+            border-radius:
+                5px 5px 0 0;
+        }
+
+
+        .loading-line {
+
+            position: absolute;
+
+            left: 8px;
+            right: 8px;
+
+            top: 50%;
+
+            height: 2px;
+
+            background:
+                var(--success);
+
+            box-shadow:
+                0 0 8px
+                var(--success);
+
+            animation:
+                loadingScan
+                1.4s
+                ease-in-out
+                infinite;
+        }
+
+
+        @keyframes loadingScan {
+
+            0%,
+            100% {
+
+                transform:
+                    translateY(-25px);
+
+                opacity:
+                    0.3;
+            }
+
+            50% {
+
+                transform:
+                    translateY(25px);
+
+                opacity:
+                    1;
+            }
+        }
+
+
+        .analyze-box h2 {
+
+            font-size: 18px;
+
+            margin-bottom: 6px;
+        }
+
+
+        .analyze-box p {
+
+            color:
+                var(--text-light);
+
+            font-size: 10px;
+
+            margin-bottom: 17px;
+        }
+
+
+        .analysis-progress {
+
+            height: 7px;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            background:
+                var(--mint);
+        }
+
+
+        .analysis-progress span {
+
+            display: block;
+
+            width: 0%;
+
+            height: 100%;
+
+            border-radius: inherit;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--primary-light),
+                    var(--success)
+                );
+
+            transition:
+                width 0.4s ease;
+        }
+
+
+        .analysis-status {
+
+            margin-top: 9px;
+
+            font-size: 8px;
+
+            color:
+                var(--text-muted);
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================== */
+
+        .footer {
+
+            margin-top: 45px;
+
+            padding-top: 21px;
+
+            border-top:
+                1px solid var(--border);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+
+            gap: 20px;
+        }
+
+
+        .footer-brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+        }
+
+
+        .footer-mini-logo {
+
+            width: 28px;
+            height: 28px;
+
+            border-radius: 9px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--primary-light),
+                    var(--primary-dark)
+                );
+
+            font-size: 13px;
+        }
+
+
+        .footer-brand span {
+
+            color:
+                var(--text-muted);
+
+            font-size: 9px;
+        }
+
+
+        .footer-links {
+
+            display: flex;
+
+            gap: 18px;
+        }
+
+
+        .footer-links a {
+
+            color:
+                var(--text-muted);
+
+            font-size: 9px;
+
+            transition:
+                color 0.2s ease;
+        }
+
+
+        .footer-links a:hover {
+
+            color:
+                var(--primary);
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================== */
+
+        @media (max-width: 1050px) {
+
+            .nav-links {
+
+                gap: 16px;
+            }
+
+
+            .nav-links a {
+
+                font-size: 12px;
+            }
+
+
+            .scan-layout {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .side-column {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        minmax(
+                            0,
+                            1fr
+                        )
+                    );
+            }
+
+
+            .supported-card {
+
+                grid-column:
+                    span 2;
+            }
+        }
+
+
+        @media (max-width: 850px) {
+
+            .nav-links {
+
+                display: none;
+            }
+
+
+            .mobile-menu {
+
+                display: flex;
+
+                align-items: center;
+
+                justify-content: center;
+            }
+
+
+            .side-column {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .supported-card {
+
+                grid-column:
+                    auto;
+            }
+        }
+
+
+        @media (max-width: 650px) {
+
+            .nav-container {
+
+                height: 70px;
+            }
+
+
+            .main {
+
+                width: 94%;
+
+                padding-top: 96px;
+            }
+
+
+            .logo {
+
+                font-size: 18px;
+            }
+
+
+            .logo-icon {
+
+                width: 38px;
+                height: 38px;
+            }
+
+
+            .theme-toggle,
+            .profile-button,
+            .mobile-menu {
+
+                width: 37px;
+                height: 37px;
+            }
+
+
+            .page-header h1 {
+
+                font-size: 33px;
+            }
+
+
+            .upload-card-header {
+
+                padding:
+                    18px 17px 15px;
+            }
+
+
+            .upload-content {
+
+                padding: 17px;
+            }
+
+
+            .drop-zone {
+
+                min-height: 340px;
+
+                padding: 22px;
+            }
+
+
+            .preview-container {
+
+                min-height: 340px;
+            }
+
+
+            .preview-image {
+
+                height: 340px;
+            }
+
+
+            .upload-actions {
+
+                align-items:
+                    stretch;
+
+                flex-direction:
+                    column;
+            }
+
+
+            .action-buttons {
+
+                width: 100%;
+            }
+
+
+            .action-buttons .btn {
+
+                flex: 1;
+            }
+
+
+            .footer {
+
+                align-items:
+                    flex-start;
+
+                flex-direction:
+                    column;
+            }
+
+
+            .footer-links {
+
+                flex-wrap: wrap;
+
+                gap: 12px;
+            }
+        }
+
+
+        @media (max-width: 430px) {
+
+            .main {
+
+                width: 94%;
+            }
+
+
+            .page-header h1 {
+
+                font-size: 30px;
+            }
+
+
+            .drop-zone h2 {
+
+                font-size: 18px;
+            }
+
+
+            .upload-illustration {
+
+                width: 75px;
+                height: 75px;
+
+                font-size: 31px;
+            }
+
+
+            .camera-preview {
+
+                height: 310px;
+            }
+        }
+
+
+        /* =========================================================
+           SCROLLBAR
+        ========================================================== */
+
+        ::-webkit-scrollbar {
+
+            width: 7px;
+            height: 7px;
+        }
+
+
+        ::-webkit-scrollbar-track {
+
+            background:
+                var(--cream-dark);
+        }
+
+
+        ::-webkit-scrollbar-thumb {
+
+            background:
+                var(--mint-bright);
+
+            border-radius: 20px;
+        }
+
+
+        ::-webkit-scrollbar-thumb:hover {
+
+            background:
+                var(--primary-light);
+        }
+
+
+        /* =========================================================
+           REVEAL ANIMATION
+        ========================================================== */
+
+        .reveal {
+
+            animation:
+                revealUp
+                0.6s
+                ease
+                both;
+        }
+
+
+        .delay-1 {
+
+            animation-delay:
+                0.08s;
+        }
+
+
+        .delay-2 {
+
+            animation-delay:
+                0.16s;
+        }
+
+
+        @keyframes revealUp {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(14px);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+         BACKGROUND
+    ========================================================== -->
+
+    <div class="background-decoration blob-one"></div>
+
+    <div class="background-decoration blob-two"></div>
+
+
+
+    <!-- =========================================================
+         NAVBAR
+    ========================================================== -->
+
+    <header class="navbar">
+
+        <div class="nav-container">
+
+
+            <!-- LOGO -->
+
+            <a
+                href="dashboard.html"
+                class="logo"
+            >
+
+                <div class="logo-icon">
+
+                    <span>🛡️</span>
+
+                </div>
+
+                <div class="logo-text">
+
+                    Veri<span>Shield</span>
+
+                </div>
+
+            </a>
+
+
+
+            <!-- DESKTOP NAVIGATION -->
+
+            <nav class="nav-links">
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a
+                    href="scan.html"
+                    class="active"
+                >
+                    Scan
+                </a>
+
+                <a href="history.html">
+                    History
+                </a>
+
+                <a href="report.html">
+                    Reports
+                </a>
+
+            </nav>
+
+
+
+            <!-- NAV ACTIONS -->
+
+            <div class="nav-actions">
+
+
+                <!-- THEME -->
+
+                <button
+                    type="button"
+                    id="themeToggle"
+                    class="theme-toggle"
+                    title="Switch to Night / Dark Mode"
+                    aria-label="Switch to Night / Dark Mode"
+                >
+                    🌙
+                </button>
+
+
+
+                <!-- PROFILE -->
+
+                <div class="profile-wrapper">
+
+                    <button
+                        type="button"
+                        id="profileButton"
+                        class="profile-button"
+                        aria-label="Open profile"
+                    >
+                        PP
+                    </button>
+
+
+                    <div
+                        id="profileDropdown"
+                        class="profile-dropdown"
+                    >
+
+                        <div class="profile-head">
+
+                            <strong id="dropdownName">
+                                Pallavi P.
+                            </strong>
+
+                            <span id="dropdownEmail">
+                                user@verishield.local
+                            </span>
+
+                        </div>
+
+
+                        <a
+                            href="profile.html"
+                            class="dropdown-link"
+                        >
+
+                            👤
+
+                            <span>
+                                Profile
+                            </span>
+
+                        </a>
+
+
+                        <a
+                            href="settings.html"
+                            class="dropdown-link"
+                        >
+
+                            ⚙️
+
+                            <span>
+                                Settings
+                            </span>
+
+                        </a>
+
+
+                        <a
+                            href="index.html"
+                            class="dropdown-link"
+                            id="logoutLink"
+                        >
+
+                            ↪️
+
+                            <span>
+                                Logout
+                            </span>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MOBILE MENU -->
+
+                <button
+                    type="button"
+                    id="mobileMenuButton"
+                    class="mobile-menu"
+                    aria-label="Open menu"
+                >
+                    ☰
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================================================
+         MOBILE NAVIGATION
+    ========================================================== -->
+
+    <nav
+        id="mobileNav"
+        class="mobile-nav"
+    >
+
+        <a href="dashboard.html">
+            🏠 Dashboard
+        </a>
+
+        <a
+            href="scan.html"
+            class="active"
+        >
+            📷 Scan Product
+        </a>
+
+        <a href="history.html">
+            🕘 Scan History
+        </a>
+
+        <a href="report.html">
+            📄 Reports
+        </a>
+
+    </nav>
+
+
+
+    <!-- =========================================================
+         MAIN
+    ========================================================== -->
+
+    <main class="main">
+
+
+        <!-- =====================================================
+             PAGE HEADER
+        ====================================================== -->
+
+        <section class="page-header reveal">
+
+            <div class="page-eyebrow">
+
+                <span class="page-eyebrow-dot"></span>
+
+                PACKAGE COMPLIANCE SCANNER
+
+            </div>
+
+
+            <h1>
+
+                Scan a
+                <span>package.</span>
+
+            </h1>
+
+
+            <p>
+
+                Upload or capture a clear image of a packaged
+                commodity label. VeriShield will extract visible
+                declarations and perform a preliminary
+                compliance screening.
+
+            </p>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             SCAN LAYOUT
+        ====================================================== -->
+
+        <section class="scan-layout">
+
+
+            <!-- =================================================
+                 MAIN UPLOAD AREA
+            ================================================== -->
+
+            <div class="upload-card reveal delay-1">
+
+
+                <div class="upload-card-header">
+
+                    <div class="card-title">
+
+                        <div class="card-title-icon">
+                            📷
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Product Image
+                            </strong>
+
+                            <span>
+                                Upload a label image for screening
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="upload-content">
+
+
+                    <!-- =================================================
+                         DROP ZONE
+                    ================================================== -->
+
+                    <div
+                        id="dropZone"
+                        class="drop-zone"
+                    >
+
+
+                        <div class="upload-illustration">
+                            📦
+                        </div>
+
+
+                        <h2>
+                            Drop your package image here
+                        </h2>
+
+
+                        <p>
+
+                            Upload a clear front or label image of
+                            the packaged commodity. Make sure the
+                            printed declarations are visible and
+                            readable.
+
+                        </p>
+
+
+                        <button
+                            type="button"
+                            id="browseButton"
+                            class="browse-button"
+                        >
+
+                            📁
+
+                            Choose Image
+
+                        </button>
+
+
+                        <input
+                            type="file"
+                            id="fileInput"
+                            accept="image/png,image/jpeg,image/jpg,image/webp"
+                        >
+
+
+                        <button
+                            type="button"
+                            id="captureButton"
+                            class="capture-button"
+                        >
+
+                            📸
+                            Capture with Camera
+
+                        </button>
+
+
+                        <div class="drop-hint">
+
+                            PNG, JPG, JPEG or WEBP •
+                            Clear label images work best
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         IMAGE PREVIEW
+                    ================================================== -->
+
+                    <div
+                        id="previewContainer"
+                        class="preview-container"
+                    >
+
+                        <img
+                            id="previewImage"
+                            class="preview-image"
+                            alt="Selected package preview"
+                        >
+
+
+                        <div class="preview-overlay">
+
+                            <div class="preview-label">
+                                📦 Package Preview
+                            </div>
+
+
+                            <button
+                                type="button"
+                                id="removePreview"
+                                class="remove-preview"
+                                title="Remove image"
+                            >
+                                ✕
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         IMAGE INFORMATION
+                    ================================================== -->
+
+                    <div
+                        id="imageInfo"
+                        class="image-info"
+                    >
+
+                        <div class="image-name">
+
+                            <strong id="imageFileName">
+                                package-image.jpg
+                            </strong>
+
+                            <span id="imageFileSize">
+                                Image selected
+                            </span>
+
+                        </div>
+
+
+                        <div class="image-valid">
+                            ✓ Ready
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         ACTIONS
+                    ================================================== -->
+
+                    <div class="upload-actions">
+
+
+                        <div class="action-note">
+
+                            🔎
+                            Clear images improve OCR extraction.
+
+                        </div>
+
+
+                        <div class="action-buttons">
+
+
+                            <button
+                                type="button"
+                                id="replaceButton"
+                                class="btn btn-outline"
+                                style="display:none;"
+                            >
+
+                                ↻
+                                Replace
+
+                            </button>
+
+
+                            <button
+                                type="button"
+                                id="analyzeButton"
+                                class="btn btn-primary"
+                                disabled
+                            >
+
+                                🔍
+                                Analyze Package
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SIDE INFORMATION
+            ================================================== -->
+
+            <div class="side-column reveal delay-2">
+
+
+                <!-- =================================================
+                     WHAT TO SCAN
+                ================================================== -->
+
+                <div class="info-card">
+
+                    <div class="info-card-header">
+
+                        <div class="info-card-icon">
+                            🏷️
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                What should be visible?
+                            </strong>
+
+                            <span>
+                                Useful label information
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="scan-list">
+
+
+                        <div class="scan-item">
+
+                            <div class="scan-item-icon">
+                                🏭
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Manufacturer
+                                </strong>
+
+                                <span>
+                                    Name and relevant address
+                                    information.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="scan-item">
+
+                            <div class="scan-item-icon">
+                                ⚖️
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Net Quantity
+                                </strong>
+
+                                <span>
+                                    Declared quantity and
+                                    applicable unit.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="scan-item">
+
+                            <div class="scan-item-icon">
+                                ₹
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    MRP
+                                </strong>
+
+                                <span>
+                                    Maximum retail price
+                                    declaration.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="scan-item">
+
+                            <div class="scan-item-icon">
+                                📅
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Date Information
+                                </strong>
+
+                                <span>
+                                    Relevant manufacturing,
+                                    packing or expiry information.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="scan-item">
+
+                            <div class="scan-item-icon">
+                                ☎️
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Consumer Care
+                                </strong>
+
+                                <span>
+                                    Customer care or contact
+                                    information where applicable.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="scan-item">
+
+                            <div class="scan-item-icon">
+                                🌍
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Country of Origin
+                                </strong>
+
+                                <span>
+                                    Checked where applicable
+                                    based on product context.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     HOW IT WORKS
+                ================================================== -->
+
+                <div class="info-card">
+
+                    <div class="info-card-header">
+
+                        <div class="info-card-icon">
+                            🔎
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                What happens after scanning?
+                            </strong>
+
+                            <span>
+                                VeriShield screening flow
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="process-list">
+
+
+                        <div class="process-step">
+
+                            <div class="process-number">
+                                01
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Image Processing
+                                </strong>
+
+                                <span>
+                                    The uploaded package image
+                                    is prepared for text extraction.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="process-step">
+
+                            <div class="process-number">
+                                02
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    OCR Extraction
+                                </strong>
+
+                                <span>
+                                    Visible label text is extracted
+                                    from the image.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="process-step">
+
+                            <div class="process-number">
+                                03
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Information Mapping
+                                </strong>
+
+                                <span>
+                                    Relevant declarations are mapped
+                                    into structured fields.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="process-step">
+
+                            <div class="process-number">
+                                04
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Rule Screening
+                                </strong>
+
+                                <span>
+                                    Applicable configured Legal
+                                    Metrology rules are checked.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="process-step">
+
+                            <div class="process-number">
+                                05
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Evidence-Based Result
+                                </strong>
+
+                                <span>
+                                    Findings, confidence and
+                                    review recommendations are shown.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     SUPPORTED FORMATS
+                ================================================== -->
+
+                <div class="info-card supported-card">
+
+                    <div class="info-card-header">
+
+                        <div class="info-card-icon">
+                            🖼️
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Supported image formats
+                            </strong>
+
+                            <span>
+                                For the current frontend
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="format-tags">
+
+                        <div class="format-tag">
+                            JPG
+                        </div>
+
+                        <div class="format-tag">
+                            JPEG
+                        </div>
+
+                        <div class="format-tag">
+                            PNG
+                        </div>
+
+                        <div class="format-tag">
+                            WEBP
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             DISCLAIMER
+        ====================================================== -->
+
+        <section class="disclaimer reveal">
+
+            <div class="disclaimer-icon">
+                !
+            </div>
+
+            <div>
+
+                <strong>
+                    Preliminary Compliance Screening
+                </strong>
+
+                <p>
+
+                    VeriShield provides an evidence-based
+                    preliminary screening of visible package
+                    declarations. OCR results, image quality and
+                    contextual requirements may affect findings.
+                    Results should be manually reviewed before
+                    being treated as a final legal or regulatory
+                    determination.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             FOOTER
+        ====================================================== -->
+
+        <footer class="footer">
+
+            <div class="footer-brand">
+
+                <div class="footer-mini-logo">
+                    🛡️
+                </div>
+
+                <span>
+                    © 2026 VeriShield • Smart Package Compliance Screening
+                </span>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="history.html">
+                    History
+                </a>
+
+                <a href="report.html">
+                    Reports
+                </a>
+
+                <a href="settings.html">
+                    Settings
+                </a>
+
+            </div>
+
+        </footer>
+
+    </main>
+
+
+
+    <!-- =========================================================
+         CAMERA MODAL
+    ========================================================== -->
+
+    <div
+        id="cameraModal"
+        class="camera-modal"
+    >
+
+        <div class="camera-box">
+
+
+            <div class="camera-header">
+
+                <strong>
+                    Capture Package Image
+                </strong>
+
+
+                <button
+                    type="button"
+                    id="closeCamera"
+                    class="close-camera"
+                    aria-label="Close camera"
+                >
+                    ✕
+                </button>
+
+            </div>
+
+
+            <video
+                id="cameraPreview"
+                class="camera-preview"
+                autoplay
+                playsinline
+            ></video>
+
+
+            <canvas
+                id="cameraCanvas"
+                style="display:none;"
+            ></canvas>
+
+
+            <div class="camera-actions">
+
+                <button
+                    type="button"
+                    id="takePhoto"
+                    class="capture-main"
+                    aria-label="Take photo"
+                    title="Take photo"
+                ></button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================================
+         ANALYSIS OVERLAY
+    ========================================================== -->
+
+    <div
+        id="analyzeOverlay"
+        class="analyze-overlay"
+    >
+
+        <div class="analyze-box">
+
+
+            <div class="loading-scanner">
+
+                <div class="loading-package"></div>
+
+                <div class="loading-line"></div>
+
+            </div>
+
+
+            <h2>
+                Screening your package...
+            </h2>
+
+
+            <p id="analysisText">
+
+                Preparing image for OCR...
+
+            </p>
+
+
+            <div class="analysis-progress">
+
+                <span id="analysisProgress"></span>
+
+            </div>
+
+
+            <div
+                id="analysisStatus"
+                class="analysis-status"
+            >
+                Step 1 of 4
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+
+    <script>
+
+
+        /* =========================================================
+           USER INFORMATION
+        ========================================================== */
+
+        const savedName =
+            localStorage.getItem(
+                "verishield_user_name"
+            );
+
+
+        const savedEmail =
+            localStorage.getItem(
+                "verishield_user_email"
+            );
+
+
+        const dropdownName =
+            document.getElementById(
+                "dropdownName"
+            );
+
+
+        const dropdownEmail =
+            document.getElementById(
+                "dropdownEmail"
+            );
+
+
+        if (
+            savedName &&
+            savedName.trim() !== ""
+        ) {
+
+            dropdownName.textContent =
+                savedName;
+
+        }
+
+
+        if (
+            savedEmail &&
+            savedEmail.trim() !== ""
+        ) {
+
+            dropdownEmail.textContent =
+                savedEmail;
+
+        }
+
+
+
+        /* =========================================================
+           THEME TOGGLE
+        ========================================================== */
+
+        const themeToggle =
+            document.getElementById(
+                "themeToggle"
+            );
+
+
+        function updateThemeButton() {
+
+            const isDark =
+                document.documentElement
+                    .classList
+                    .contains(
+                        "dark-mode"
+                    );
+
+
+            if (isDark) {
+
+                themeToggle.textContent =
+                    "☀️";
+
+                themeToggle.title =
+                    "Switch to Day / Light Mode";
+
+                themeToggle.setAttribute(
+                    "aria-label",
+                    "Switch to Day / Light Mode"
+                );
+
+            } else {
+
+                themeToggle.textContent =
+                    "🌙";
+
+                themeToggle.title =
+                    "Switch to Night / Dark Mode";
+
+                themeToggle.setAttribute(
+                    "aria-label",
+                    "Switch to Night / Dark Mode"
+                );
+
+            }
+
+        }
+
+
+        updateThemeButton();
+
+
+        themeToggle.addEventListener(
+            "click",
+            function () {
+
+                const isDark =
+                    document.documentElement
+                        .classList
+                        .toggle(
+                            "dark-mode"
+                        );
+
+
+                localStorage.setItem(
+                    "verishield_theme",
+                    isDark
+                        ? "dark"
+                        : "light"
+                );
+
+
+                updateThemeButton();
+
+            }
+        );
+
+
+
+        /* =========================================================
+           PROFILE DROPDOWN
+        ========================================================== */
+
+        const profileButton =
+            document.getElementById(
+                "profileButton"
+            );
+
+
+        const profileDropdown =
+            document.getElementById(
+                "profileDropdown"
+            );
+
+
+        profileButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+                profileDropdown.classList.toggle(
+                    "show"
+                );
+
+            }
+        );
+
+
+        document.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    !profileDropdown.contains(
+                        event.target
+                    ) &&
+                    !profileButton.contains(
+                        event.target
+                    )
+                ) {
+
+                    profileDropdown.classList.remove(
+                        "show"
+                    );
+
+                }
+
+            }
+        );
+
+
+
+        /* =========================================================
+           PROFILE INITIALS
+        ========================================================== */
+
+        function createInitials(name) {
+
+            if (!name) {
+
+                return "PP";
+
+            }
+
+
+            const parts =
+                name
+                    .trim()
+                    .split(/\s+/);
+
+
+            if (
+                parts.length === 1
+            ) {
+
+                return parts[0]
+                    .substring(0, 2)
+                    .toUpperCase();
+
+            }
+
+
+            return (
+                parts[0][0] +
+                parts[
+                    parts.length - 1
+                ][0]
+            ).toUpperCase();
+
+        }
+
+
+        if (savedName) {
+
+            profileButton.textContent =
+                createInitials(
+                    savedName
+                );
+
+        }
+
+
+
+        /* =========================================================
+           MOBILE MENU
+        ========================================================== */
+
+        const mobileMenuButton =
+            document.getElementById(
+                "mobileMenuButton"
+            );
+
+
+        const mobileNav =
+            document.getElementById(
+                "mobileNav"
+            );
+
+
+        mobileMenuButton.addEventListener(
+            "click",
+            function () {
+
+                mobileNav.classList.toggle(
+                    "show"
+                );
+
+
+                const isOpen =
+                    mobileNav.classList.contains(
+                        "show"
+                    );
+
+
+                mobileMenuButton.textContent =
+                    isOpen
+                        ? "✕"
+                        : "☰";
+
+            }
+        );
+
+
+        document
+            .querySelectorAll(
+                ".mobile-nav a"
+            )
+            .forEach(
+                function (link) {
+
+                    link.addEventListener(
+                        "click",
+                        function () {
+
+                            mobileNav.classList.remove(
+                                "show"
+                            );
+
+                            mobileMenuButton.textContent =
+                                "☰";
+
+                        }
+                    );
+
+                }
+            );
+
+
+
+        /* =========================================================
+           LOGOUT
+        ========================================================== */
+
+        document
+            .getElementById(
+                "logoutLink"
+            )
+            .addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+
+
+                    localStorage.removeItem(
+                        "verishield_logged_in"
+                    );
+
+
+                    window.location.href =
+                        "index.html";
+
+                }
+            );
+
+
+
+        /* =========================================================
+           FILE UPLOAD ELEMENTS
+        ========================================================== */
+
+        const fileInput =
+            document.getElementById(
+                "fileInput"
+            );
+
+
+        const browseButton =
+            document.getElementById(
+                "browseButton"
+            );
+
+
+        const captureButton =
+            document.getElementById(
+                "captureButton"
+            );
+
+
+        const dropZone =
+            document.getElementById(
+                "dropZone"
+            );
+
+
+        const previewContainer =
+            document.getElementById(
+                "previewContainer"
+            );
+
+
+        const previewImage =
+            document.getElementById(
+                "previewImage"
+            );
+
+
+        const imageInfo =
+            document.getElementById(
+                "imageInfo"
+            );
+
+
+        const imageFileName =
+            document.getElementById(
+                "imageFileName"
+            );
+
+
+        const imageFileSize =
+            document.getElementById(
+                "imageFileSize"
+            );
+
+
+        const analyzeButton =
+            document.getElementById(
+                "analyzeButton"
+            );
+
+
+        const replaceButton =
+            document.getElementById(
+                "replaceButton"
+            );
+
+
+        const removePreview =
+            document.getElementById(
+                "removePreview"
+            );
+
+
+
+        /* =========================================================
+           SELECT IMAGE
+        ========================================================== */
+
+        browseButton.addEventListener(
+            "click",
+            function () {
+
+                fileInput.click();
+
+            }
+        );
+
+
+        replaceButton.addEventListener(
+            "click",
+            function () {
+
+                fileInput.click();
+
+            }
+        );
+
+
+        fileInput.addEventListener(
+            "change",
+            function () {
+
+                if (
+                    fileInput.files &&
+                    fileInput.files.length > 0
+                ) {
+
+                    handleFile(
+                        fileInput.files[0]
+                    );
+
+                }
+
+            }
+        );
+
+
+
+        /* =========================================================
+           HANDLE FILE
+        ========================================================== */
+
+        let selectedFile = null;
+
+
+        function handleFile(file) {
+
+            if (!file) {
+                return;
+            }
+
+
+            if (
+                !file.type.startsWith(
+                    "image/"
+                )
+            ) {
+
+                alert(
+                    "Please select a valid image file."
+                );
+
+                return;
+
+            }
+
+
+            selectedFile = file;
+
+
+            const imageURL =
+                URL.createObjectURL(
+                    file
+                );
+
+
+            previewImage.src =
+                imageURL;
+
+
+            dropZone.classList.add(
+                "hidden"
+            );
+
+
+            previewContainer.classList.add(
+                "show"
+            );
+
+
+            imageInfo.classList.add(
+                "show"
+            );
+
+
+            replaceButton.style.display =
+                "inline-block";
+
+
+            analyzeButton.disabled =
+                false;
+
+
+            imageFileName.textContent =
+                file.name;
+
+
+            imageFileSize.textContent =
+                formatFileSize(
+                    file.size
+                );
+
+
+            previewImage.onload =
+                function () {
+
+                    URL.revokeObjectURL(
+                        imageURL
+                    );
+
+                };
+
+        }
+
+
+
+        /* =========================================================
+           FILE SIZE
+        ========================================================== */
+
+        function formatFileSize(bytes) {
+
+            if (
+                bytes === 0
+            ) {
+
+                return "0 KB";
+
+            }
+
+
+            const units = [
+                "Bytes",
+                "KB",
+                "MB",
+                "GB"
+            ];
+
+
+            const index =
+                Math.floor(
+                    Math.log(bytes) /
+                    Math.log(1024)
+                );
+
+
+            return (
+                parseFloat(
+                    (
+                        bytes /
+                        Math.pow(
+                            1024,
+                            index
+                        )
+                    ).toFixed(2)
+                ) +
+                " " +
+                units[index]
+            );
+
+        }
+
+
+
+        /* =========================================================
+           REMOVE IMAGE
+        ========================================================== */
+
+        removePreview.addEventListener(
+            "click",
+            clearSelectedImage
+        );
+
+
+        function clearSelectedImage() {
+
+            selectedFile = null;
+
+
+            fileInput.value = "";
+
+
+            previewImage.src = "";
+
+
+            previewContainer.classList.remove(
+                "show"
+            );
+
+
+            imageInfo.classList.remove(
+                "show"
+            );
+
+
+            dropZone.classList.remove(
+                "hidden"
+            );
+
+
+            replaceButton.style.display =
+                "none";
+
+
+            analyzeButton.disabled =
+                true;
+
+        }
+
+
+
+        /* =========================================================
+           DRAG AND DROP
+        ========================================================== */
+
+        [
+            "dragenter",
+            "dragover"
+        ].forEach(
+            function (eventName) {
+
+                dropZone.addEventListener(
+                    eventName,
+                    function (event) {
+
+                        event.preventDefault();
+
+                        event.stopPropagation();
+
+                        dropZone.classList.add(
+                            "drag-over"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+        [
+            "dragleave",
+            "drop"
+        ].forEach(
+            function (eventName) {
+
+                dropZone.addEventListener(
+                    eventName,
+                    function (event) {
+
+                        event.preventDefault();
+
+                        event.stopPropagation();
+
+                        dropZone.classList.remove(
+                            "drag-over"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+        dropZone.addEventListener(
+            "drop",
+            function (event) {
+
+                const files =
+                    event.dataTransfer.files;
+
+
+                if (
+                    files &&
+                    files.length > 0
+                ) {
+
+                    handleFile(
+                        files[0]
+                    );
+
+                }
+
+            }
+        );
+
+
+
+        /* =========================================================
+           CAMERA
+        ========================================================== */
+
+        const cameraModal =
+            document.getElementById(
+                "cameraModal"
+            );
+
+
+        const cameraPreview =
+            document.getElementById(
+                "cameraPreview"
+            );
+
+
+        const cameraCanvas =
+            document.getElementById(
+                "cameraCanvas"
+            );
+
+
+        const closeCamera =
+            document.getElementById(
+                "closeCamera"
+            );
+
+
+        const takePhoto =
+            document.getElementById(
+                "takePhoto"
+            );
+
+
+        let cameraStream = null;
+
+
+
+        captureButton.addEventListener(
+            "click",
+            openCamera
+        );
+
+
+        async function openCamera() {
+
+            try {
+
+                cameraStream =
+                    await navigator
+                        .mediaDevices
+                        .getUserMedia(
+                            {
+                                video: {
+                                    facingMode:
+                                        {
+                                            ideal:
+                                                "environment"
+                                        }
+                                },
+                                audio: false
+                            }
+                        );
+
+
+                cameraPreview.srcObject =
+                    cameraStream;
+
+
+                cameraModal.classList.add(
+                    "show"
+                );
+
+            } catch (error) {
+
+                alert(
+                    "Camera access is unavailable. Please use the image upload option."
+                );
+
+            }
+
+        }
+
+
+
+        /* =========================================================
+           CLOSE CAMERA
+        ========================================================== */
+
+        closeCamera.addEventListener(
+            "click",
+            closeCameraModal
+        );
+
+
+        function closeCameraModal() {
+
+            cameraModal.classList.remove(
+                "show"
+            );
+
+
+            if (cameraStream) {
+
+                cameraStream
+                    .getTracks()
+                    .forEach(
+                        function (track) {
+
+                            track.stop();
+
+                        }
+                    );
+
+                cameraStream = null;
+
+            }
+
+
+            cameraPreview.srcObject =
+                null;
+
+        }
+
+
+
+        /* =========================================================
+           TAKE PHOTO
+        ========================================================== */
+
+        takePhoto.addEventListener(
+            "click",
+            function () {
+
+                if (!cameraStream) {
+                    return;
+                }
+
+
+                const width =
+                    cameraPreview.videoWidth;
+
+
+                const height =
+                    cameraPreview.videoHeight;
+
+
+                cameraCanvas.width =
+                    width;
+
+
+                cameraCanvas.height =
+                    height;
+
+
+                const context =
+                    cameraCanvas.getContext(
+                        "2d"
+                    );
+
+
+                context.drawImage(
+                    cameraPreview,
+                    0,
+                    0,
+                    width,
+                    height
+                );
+
+
+                cameraCanvas.toBlob(
+                    function (blob) {
+
+                        const file =
+                            new File(
+                                [
+                                    blob
+                                ],
+                                "verishield-camera-capture.jpg",
+                                {
+                                    type:
+                                        "image/jpeg"
+                                }
+                            );
+
+
+                        closeCameraModal();
+
+
+                        handleFile(
+                            file
+                        );
+
+                    },
+                    "image/jpeg",
+                    0.92
+                );
+
+            }
+        );
+
+
+
+        /* =========================================================
+           CLOSE CAMERA WHEN CLICKING OUTSIDE
+        ========================================================== */
+
+        cameraModal.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target ===
+                    cameraModal
+                ) {
+
+                    closeCameraModal();
+
+                }
+
+            }
+        );
+
+
+
+        /* =========================================================
+           ANALYZE PACKAGE
+        ========================================================== */
+
+        const analyzeOverlay =
+            document.getElementById(
+                "analyzeOverlay"
+            );
+
+
+        const analysisText =
+            document.getElementById(
+                "analysisText"
+            );
+
+
+        const analysisProgress =
+            document.getElementById(
+                "analysisProgress"
+            );
+
+
+        const analysisStatus =
+            document.getElementById(
+                "analysisStatus"
+            );
+
+
+        analyzeButton.addEventListener(
+            "click",
+            function () {
+
+                if (!selectedFile) {
+
+                    alert(
+                        "Please select a package image first."
+                    );
+
+                    return;
+
+                }
+
+
+                startAnalysis();
+
+            }
+        );
+
+
+
+        /* =========================================================
+           ANALYSIS DEMO
+        ========================================================== */
+
+        function startAnalysis() {
+
+            analyzeOverlay.classList.add(
+                "show"
+            );
+
+
+            analyzeButton.disabled =
+                true;
+
+
+            let progress = 0;
+
+
+            const steps = [
+
+                {
+                    progress: 20,
+                    text:
+                        "Preparing package image...",
+                    status:
+                        "Step 1 of 4"
+                },
+
+                {
+                    progress: 45,
+                    text:
+                        "Extracting visible label text with OCR...",
+                    status:
+                        "Step 2 of 4"
+                },
+
+                {
+                    progress: 72,
+                    text:
+                        "Mapping package declarations...",
+                    status:
+                        "Step 3 of 4"
+                },
+
+                {
+                    progress: 92,
+                    text:
+                        "Running preliminary rule screening...",
+                    status:
+                        "Step 4 of 4"
+                }
+
+            ];
+
+
+            let currentStep = 0;
+
+
+            function runStep() {
+
+                if (
+                    currentStep >=
+                    steps.length
+                ) {
+
+                    finishAnalysis();
+
+                    return;
+
+                }
+
+
+                const step =
+                    steps[
+                        currentStep
+                    ];
+
+
+                progress =
+                    step.progress;
+
+
+                analysisText.textContent =
+                    step.text;
+
+
+                analysisStatus.textContent =
+                    step.status;
+
+
+                analysisProgress.style.width =
+                    progress + "%";
+
+
+                currentStep++;
+
+
+                setTimeout(
+                    runStep,
+                    850
+                );
+
+            }
+
+
+            runStep();
+
+        }
+
+
+
+        /* =========================================================
+           FINISH ANALYSIS
+        ========================================================== */
+
+        function finishAnalysis() {
+
+            analysisProgress.style.width =
+                "100%";
+
+
+            analysisText.textContent =
+                "Screening complete. Preparing your result...";
+
+
+            analysisStatus.textContent =
+                "Complete";
+
+
+            setTimeout(
+                function () {
+
+                    createDemoResult();
+
+                    analyzeOverlay.classList.remove(
+                        "show"
+                    );
+
+
+                    window.location.href =
+                        "result.html";
+
+                },
+                800
+            );
+
+        }
+
+
+
+        /* =========================================================
+           DEMO RESULT
+           
+           This is only frontend demo data.
+           Backend integration can replace this section later.
+        ========================================================== */
+
+        function createDemoResult() {
+
+            const demoResult = {
+
+                scan_id:
+                    "SCAN-" +
+                    Date.now(),
+
+                product: {
+
+                    name:
+                        "Scanned Package",
+
+                    category:
+                        "Packaged Commodity"
+
+                },
+
+                status:
+                    "REVIEW",
+
+                score:
+                    82,
+
+                image_name:
+                    selectedFile
+                        ? selectedFile.name
+                        : "package-image.jpg",
+
+                scanned_at:
+                    new Date()
+                        .toISOString(),
+
+                checks: [
+
+                    {
+
+                        field:
+                            "manufacturer",
+
+                        status:
+                            "PASS",
+
+                        value:
+                            "Detected from package label"
+
+                    },
+
+                    {
+
+                        field:
+                            "net_quantity",
+
+                        status:
+                            "PASS",
+
+                        value:
+                            "Detected from package label"
+
+                    },
+
+                    {
+
+                        field:
+                            "mrp",
+
+                        status:
+                            "REVIEW",
+
+                        value:
+                            "Detected — manual verification recommended"
+
+                    },
+
+                    {
+
+                        field:
+                            "date_information",
+
+                        status:
+                            "REVIEW",
+
+                        value:
+                            "Requires contextual verification"
+
+                    },
+
+                    {
+
+                        field:
+                            "consumer_care",
+
+                        status:
+                            "PASS",
+
+                        value:
+                            "Detected from package label"
+
+                    }
+
+                ],
+
+                violations: [
+
+                    {
+
+                        rule_id:
+                            "LM-DEMO-001",
+
+                        title:
+                            "Manual Verification Recommended",
+
+                        description:
+                            "Some package information requires manual verification because image quality, OCR confidence or contextual applicability may affect the screening result.",
+
+                        confidence:
+                            0.82
+
+                    }
+
+                ]
+
+            };
+
+
+            localStorage.setItem(
+                "verishield_last_result",
+                JSON.stringify(
+                    demoResult
+                )
+            );
+
+        }
+
+
+
+        /* =========================================================
+           ESC KEY
+        ========================================================== */
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Escape"
+                ) {
+
+                    if (
+                        cameraModal.classList.contains(
+                            "show"
+                        )
+                    ) {
+
+                        closeCameraModal();
+
+                    }
+
+                }
+
+            }
+        );
+
+
+    </script>
+
+</body>
+</html>
