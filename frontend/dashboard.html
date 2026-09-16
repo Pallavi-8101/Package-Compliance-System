@@ -1,0 +1,3907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VeriShield | Dashboard</title>
+
+    <meta
+        name="description"
+        content="VeriShield dashboard for packaged commodity compliance screening."
+    >
+
+    <!-- Apply saved theme before the page renders -->
+    <script>
+        if (localStorage.getItem("verishield_theme") === "dark") {
+            document.documentElement.classList.add("dark-mode");
+        }
+    </script>
+
+    <style>
+        /* =========================================================
+           VERISHIELD DASHBOARD
+           Same visual language as approved index.html
+           Emerald + Mint + Warm Cream
+           No Blue / No Red
+        ========================================================= */
+
+        :root {
+            --primary: #176b57;
+            --primary-dark: #0d4f40;
+            --primary-light: #2f9278;
+
+            --mint: #dff4eb;
+            --mint-soft: #eefaf5;
+            --mint-bright: #c9eee0;
+
+            --cream: #fbfaf5;
+            --cream-dark: #f4f1e8;
+
+            --text: #17352d;
+            --text-light: #61746e;
+            --text-muted: #82918c;
+
+            --white: #ffffff;
+
+            --success: #23835f;
+            --success-soft: #e3f5ec;
+
+            --warning: #b87920;
+            --warning-soft: #fff1d8;
+
+            --border: #dce8e2;
+
+            --shadow-sm: 0 6px 20px rgba(23, 107, 87, 0.07);
+            --shadow-md: 0 15px 45px rgba(23, 107, 87, 0.10);
+            --shadow-lg: 0 25px 70px rgba(23, 107, 87, 0.14);
+
+            --radius-sm: 12px;
+            --radius-md: 18px;
+            --radius-lg: 28px;
+            --radius-xl: 36px;
+
+            --nav-bg: rgba(251, 250, 245, 0.88);
+            --card-bg: rgba(255, 255, 255, 0.88);
+            --input-bg: #ffffff;
+        }
+
+        /* =========================================================
+           DARK MODE
+        ========================================================= */
+
+        html.dark-mode {
+            --primary: #55b899;
+            --primary-dark: #2f9278;
+            --primary-light: #6cc9aa;
+
+            --mint: #183b31;
+            --mint-soft: #122d26;
+            --mint-bright: #285747;
+
+            --cream: #0d1714;
+            --cream-dark: #14211d;
+
+            --text: #e6f2ed;
+            --text-light: #b2c7bf;
+            --text-muted: #829c93;
+
+            --white: #17231f;
+
+            --success: #65c99d;
+            --success-soft: #183b30;
+
+            --warning: #e2ae62;
+            --warning-soft: #3b2d1b;
+
+            --border: #29423a;
+
+            --nav-bg: rgba(13, 23, 20, 0.90);
+            --card-bg: rgba(23, 35, 31, 0.90);
+            --input-bg: #17231f;
+
+            --shadow-sm: 0 6px 20px rgba(0, 0, 0, 0.18);
+            --shadow-md: 0 15px 45px rgba(0, 0, 0, 0.22);
+            --shadow-lg: 0 25px 70px rgba(0, 0, 0, 0.30);
+        }
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                Inter,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            color: var(--text);
+            background: var(--cream);
+
+            line-height: 1.6;
+            overflow-x: hidden;
+
+            transition:
+                background 0.3s ease,
+                color 0.3s ease;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* =========================================================
+           BACKGROUND DECORATIONS
+        ========================================================= */
+
+        .background-decoration {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            border-radius: 50%;
+            filter: blur(2px);
+        }
+
+        .blob-one {
+            width: 420px;
+            height: 420px;
+            background: rgba(201, 238, 224, 0.45);
+            top: -180px;
+            right: -120px;
+        }
+
+        .blob-two {
+            width: 320px;
+            height: 320px;
+            background: rgba(223, 244, 235, 0.48);
+            bottom: 5%;
+            left: -170px;
+        }
+
+        html.dark-mode .blob-one {
+            background: rgba(44, 107, 87, 0.15);
+        }
+
+        html.dark-mode .blob-two {
+            background: rgba(37, 91, 75, 0.14);
+        }
+
+        /* =========================================================
+           NAVBAR
+        ========================================================= */
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+
+            z-index: 1000;
+
+            background: var(--nav-bg);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid var(--border);
+
+            transition: 0.3s ease;
+        }
+
+        .nav-container {
+            width: min(1220px, 92%);
+            margin: auto;
+
+            height: 76px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 25px;
+        }
+
+        /* Logo */
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+
+            font-weight: 800;
+            font-size: 21px;
+
+            letter-spacing: -0.5px;
+
+            white-space: nowrap;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 14px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--primary-light),
+                    var(--primary-dark)
+                );
+
+            box-shadow:
+                0 8px 20px rgba(23, 107, 87, 0.22);
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::after {
+            content: "";
+
+            position: absolute;
+
+            width: 16px;
+            height: 16px;
+
+            border:
+                2px solid
+                rgba(255, 255, 255, 0.55);
+
+            border-radius: 50%;
+
+            bottom: -5px;
+            right: -5px;
+        }
+
+        .logo-icon span {
+            font-size: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-text {
+            color: var(--text);
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        /* Navigation */
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            position: relative;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            color: var(--text-light);
+
+            transition: 0.25s ease;
+        }
+
+        .nav-links a::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            bottom: -8px;
+
+            width: 0;
+            height: 2px;
+
+            border-radius: 10px;
+
+            background: var(--primary);
+
+            transition: 0.25s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Nav actions */
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .theme-toggle,
+        .profile-button {
+            width: 40px;
+            height: 40px;
+
+            border-radius: 12px;
+
+            border: 1px solid var(--border);
+
+            background: var(--card-bg);
+
+            color: var(--text);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            transition: 0.25s ease;
+        }
+
+        .theme-toggle {
+            font-size: 17px;
+        }
+
+        .theme-toggle:hover,
+        .profile-button:hover {
+            transform: translateY(-2px);
+            border-color: var(--mint-bright);
+            background: var(--mint-soft);
+        }
+
+        .profile-button {
+            font-weight: 800;
+            font-size: 13px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--primary-light),
+                    var(--primary-dark)
+                );
+
+            border: none;
+        }
+
+        /* Mobile menu */
+
+        .mobile-menu {
+            display: none;
+
+            width: 40px;
+            height: 40px;
+
+            border-radius: 12px;
+
+            border: 1px solid var(--border);
+
+            background: var(--card-bg);
+
+            color: var(--primary);
+
+            font-size: 19px;
+        }
+
+        /* =========================================================
+           MAIN
+        ========================================================= */
+
+        .main {
+            width: min(1220px, 92%);
+            margin: auto;
+
+            padding-top: 116px;
+            padding-bottom: 70px;
+        }
+
+        /* =========================================================
+           PAGE HEADER
+        ========================================================= */
+
+        .page-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+
+            gap: 30px;
+
+            margin-bottom: 28px;
+        }
+
+        .page-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 7px 12px;
+
+            border-radius: 999px;
+
+            background: var(--mint-soft);
+            border: 1px solid var(--mint-bright);
+
+            color: var(--primary);
+
+            font-size: 11px;
+            font-weight: 800;
+
+            margin-bottom: 12px;
+        }
+
+        .page-eyebrow-dot {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: var(--success);
+
+            box-shadow:
+                0 0 0 4px rgba(35, 131, 95, 0.10);
+        }
+
+        .page-header h1 {
+            font-size: clamp(30px, 4vw, 48px);
+
+            line-height: 1.05;
+
+            letter-spacing: -1.8px;
+
+            margin-bottom: 9px;
+        }
+
+        .page-header h1 span {
+            color: var(--primary);
+        }
+
+        .page-header p {
+            color: var(--text-light);
+
+            font-size: 14px;
+
+            max-width: 650px;
+        }
+
+        .date-card {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+
+            padding: 12px 15px;
+
+            background: var(--card-bg);
+
+            border: 1px solid var(--border);
+
+            border-radius: 15px;
+
+            box-shadow: var(--shadow-sm);
+
+            white-space: nowrap;
+        }
+
+        .date-icon {
+            width: 35px;
+            height: 35px;
+
+            border-radius: 11px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: var(--mint);
+
+            font-size: 17px;
+        }
+
+        .date-card small {
+            display: block;
+
+            color: var(--text-muted);
+
+            font-size: 10px;
+        }
+
+        .date-card strong {
+            display: block;
+
+            font-size: 12px;
+        }
+
+        /* =========================================================
+           QUICK SCAN HERO
+        ========================================================= */
+
+        .quick-scan {
+            position: relative;
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.45fr)
+                minmax(300px, 0.55fr);
+
+            gap: 25px;
+
+            padding: 30px;
+
+            border-radius: var(--radius-lg);
+
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 90% 20%,
+                    rgba(201, 238, 224, 0.75),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    var(--mint-soft),
+                    var(--card-bg)
+                );
+
+            border: 1px solid var(--border);
+
+            box-shadow: var(--shadow-md);
+
+            margin-bottom: 25px;
+        }
+
+        .quick-scan::before {
+            content: "";
+
+            position: absolute;
+
+            width: 230px;
+            height: 230px;
+
+            border-radius: 50%;
+
+            border: 1px solid
+                rgba(47, 146, 120, 0.10);
+
+            right: 180px;
+            top: -100px;
+        }
+
+        .quick-scan-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .mini-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            font-size: 10px;
+            font-weight: 800;
+
+            color: var(--primary);
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.8px;
+
+            margin-bottom: 10px;
+        }
+
+        .mini-label span {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: var(--success);
+        }
+
+        .quick-scan h2 {
+            font-size: clamp(24px, 3vw, 35px);
+
+            line-height: 1.1;
+
+            letter-spacing: -1.2px;
+
+            margin-bottom: 10px;
+        }
+
+        .quick-scan p {
+            color: var(--text-light);
+
+            font-size: 13px;
+
+            max-width: 590px;
+
+            margin-bottom: 20px;
+        }
+
+        .scan-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .btn {
+            border: none;
+
+            cursor: pointer;
+
+            padding: 12px 18px;
+
+            border-radius: 12px;
+
+            font-size: 13px;
+            font-weight: 800;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary-light),
+                    var(--primary-dark)
+                );
+
+            box-shadow:
+                0 10px 25px rgba(23, 107, 87, 0.20);
+        }
+
+        .btn-primary:hover {
+            box-shadow:
+                0 15px 30px rgba(23, 107, 87, 0.27);
+        }
+
+        .btn-outline {
+            color: var(--primary);
+
+            background: transparent;
+
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            border-color: var(--mint-bright);
+        }
+
+        /* Scanner visual */
+
+        .quick-scan-visual {
+            min-height: 190px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            position: relative;
+        }
+
+        .scanner-box {
+            width: 190px;
+            height: 145px;
+
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.90),
+                    rgba(223,244,235,0.80)
+                );
+
+            border: 1px solid var(--border);
+
+            box-shadow: var(--shadow-md);
+        }
+
+        html.dark-mode .scanner-box {
+            background:
+                linear-gradient(
+                    145deg,
+                    #1b2c26,
+                    #12241f
+                );
+        }
+
+        .scanner-package {
+            width: 72px;
+            height: 92px;
+
+            border-radius: 9px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffffff,
+                    #e6f1eb
+                );
+
+            border: 1px solid #cbded5;
+
+            box-shadow:
+                0 10px 20px rgba(23, 107, 87, 0.14);
+
+            position: relative;
+        }
+
+        .scanner-package-top {
+            height: 19px;
+
+            border-radius: 9px 9px 0 0;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary-light),
+                    var(--primary-dark)
+                );
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 6px;
+            font-weight: 800;
+
+            letter-spacing: 0.5px;
+        }
+
+        .scanner-package-circle {
+            width: 25px;
+            height: 25px;
+
+            border-radius: 50%;
+
+            background: var(--mint);
+
+            margin: 10px auto 8px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 11px;
+        }
+
+        .scanner-package-lines {
+            padding: 0 12px;
+        }
+
+        .scanner-package-lines span {
+            display: block;
+
+            height: 3px;
+
+            border-radius: 10px;
+
+            background: #c8d8d1;
+
+            margin-bottom: 4px;
+        }
+
+        .scanner-package-lines span:nth-child(2) {
+            width: 70%;
+        }
+
+        .scanner-package-lines span:nth-child(3) {
+            width: 52%;
+        }
+
+        .scanner-corners {
+            position: absolute;
+            inset: 22px;
+
+            border: 2px solid
+                rgba(35, 131, 95, 0.55);
+
+            border-radius: 12px;
+
+            pointer-events: none;
+        }
+
+        .scanner-line {
+            position: absolute;
+
+            left: 25px;
+            right: 25px;
+
+            top: 50%;
+
+            height: 2px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    var(--success),
+                    transparent
+                );
+
+            animation:
+                dashboardScan 2.2s
+                infinite ease-in-out;
+        }
+
+        @keyframes dashboardScan {
+            0%,
+            100% {
+                transform: translateY(-35px);
+                opacity: 0.35;
+            }
+
+            50% {
+                transform: translateY(35px);
+                opacity: 1;
+            }
+        }
+
+        .scan-status {
+            position: absolute;
+
+            bottom: -7px;
+            right: -20px;
+
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            padding: 8px 11px;
+
+            border-radius: 999px;
+
+            background: var(--card-bg);
+
+            border: 1px solid var(--border);
+
+            box-shadow: var(--shadow-sm);
+
+            font-size: 10px;
+            font-weight: 800;
+
+            color: var(--success);
+        }
+
+        .scan-status-dot {
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: var(--success);
+        }
+
+        /* =========================================================
+           STAT CARDS
+        ========================================================= */
+
+        .stats-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 15px;
+
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            position: relative;
+
+            padding: 20px;
+
+            background: var(--card-bg);
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius-md);
+
+            box-shadow: var(--shadow-sm);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 15px;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+
+            border-radius: 13px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: var(--mint);
+
+            font-size: 18px;
+        }
+
+        .stat-change {
+            padding: 5px 8px;
+
+            border-radius: 999px;
+
+            font-size: 9px;
+            font-weight: 800;
+
+            color: var(--success);
+
+            background: var(--success-soft);
+        }
+
+        .stat-card.warning .stat-change {
+            color: var(--warning);
+            background: var(--warning-soft);
+        }
+
+        .stat-number {
+            font-size: 28px;
+
+            line-height: 1;
+
+            font-weight: 850;
+
+            letter-spacing: -1px;
+
+            margin-bottom: 6px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+
+            color: var(--text-muted);
+
+            font-weight: 600;
+        }
+
+        /* =========================================================
+           TWO COLUMN AREA
+        ========================================================= */
+
+        .dashboard-grid {
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.55fr)
+                minmax(300px, 0.85fr);
+
+            gap: 20px;
+
+            margin-bottom: 25px;
+        }
+
+        .panel {
+            background: var(--card-bg);
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius-md);
+
+            box-shadow: var(--shadow-sm);
+
+            overflow: hidden;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 20px 21px 15px;
+        }
+
+        .panel-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-title-icon {
+            width: 35px;
+            height: 35px;
+
+            border-radius: 11px;
+
+            background: var(--mint);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 16px;
+        }
+
+        .panel-title strong {
+            display: block;
+
+            font-size: 14px;
+        }
+
+        .panel-title span {
+            display: block;
+
+            color: var(--text-muted);
+
+            font-size: 10px;
+        }
+
+        .view-all {
+            color: var(--primary);
+
+            font-size: 10px;
+            font-weight: 800;
+
+            padding: 7px 10px;
+
+            border-radius: 9px;
+
+            transition: 0.2s ease;
+        }
+
+        .view-all:hover {
+            background: var(--mint-soft);
+        }
+
+        /* =========================================================
+           RECENT SCANS
+        ========================================================= */
+
+        .scan-list {
+            padding: 0 12px 12px;
+        }
+
+        .scan-row {
+            display: grid;
+
+            grid-template-columns:
+                48px
+                minmax(120px, 1fr)
+                105px
+                90px
+                82px;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 12px 9px;
+
+            border-top: 1px solid var(--border);
+
+            transition: 0.2s ease;
+        }
+
+        .scan-row:hover {
+            background: var(--mint-soft);
+        }
+
+        .product-icon {
+            width: 43px;
+            height: 43px;
+
+            border-radius: 13px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--mint),
+                    var(--mint-soft)
+                );
+
+            font-size: 20px;
+        }
+
+        .product-info strong {
+            display: block;
+
+            font-size: 12px;
+
+            margin-bottom: 2px;
+        }
+
+        .product-info span {
+            display: block;
+
+            font-size: 9px;
+
+            color: var(--text-muted);
+        }
+
+        .scan-date {
+            font-size: 10px;
+
+            color: var(--text-light);
+        }
+
+        .scan-score {
+            font-size: 11px;
+
+            font-weight: 800;
+
+            color: var(--primary);
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            width: fit-content;
+
+            padding: 5px 8px;
+
+            border-radius: 999px;
+
+            font-size: 8px;
+            font-weight: 800;
+
+            letter-spacing: 0.2px;
+        }
+
+        .status.pass {
+            color: var(--success);
+            background: var(--success-soft);
+        }
+
+        .status.review {
+            color: var(--warning);
+            background: var(--warning-soft);
+        }
+
+        /* =========================================================
+           COMPLIANCE OVERVIEW
+        ========================================================= */
+
+        .compliance-panel {
+            padding-bottom: 20px;
+        }
+
+        .compliance-content {
+            padding: 3px 21px 0;
+        }
+
+        .compliance-score-box {
+            padding: 17px;
+
+            border-radius: 17px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--mint-soft),
+                    var(--mint)
+                );
+
+            border: 1px solid var(--mint-bright);
+
+            margin-bottom: 17px;
+        }
+
+        .score-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 12px;
+        }
+
+        .score-top span {
+            font-size: 10px;
+
+            color: var(--text-light);
+
+            font-weight: 700;
+        }
+
+        .score-value {
+            font-size: 27px;
+
+            font-weight: 850;
+
+            color: var(--primary);
+        }
+
+        .progress {
+            height: 8px;
+
+            border-radius: 20px;
+
+            background: rgba(35, 131, 95, 0.13);
+
+            overflow: hidden;
+        }
+
+        .progress span {
+            display: block;
+
+            height: 100%;
+
+            width: 88%;
+
+            border-radius: inherit;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--primary-light),
+                    var(--success)
+                );
+        }
+
+        .score-note {
+            font-size: 9px;
+
+            color: var(--text-muted);
+
+            margin-top: 9px;
+        }
+
+        .compliance-items {
+            display: grid;
+
+            gap: 10px;
+        }
+
+        .compliance-item {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 10px;
+        }
+
+        .compliance-item-left {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .check-icon {
+            width: 28px;
+            height: 28px;
+
+            border-radius: 9px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: var(--success-soft);
+
+            color: var(--success);
+
+            font-size: 12px;
+        }
+
+        .check-icon.warning {
+            background: var(--warning-soft);
+            color: var(--warning);
+        }
+
+        .compliance-item strong {
+            display: block;
+
+            font-size: 10px;
+        }
+
+        .compliance-item span {
+            display: block;
+
+            font-size: 8px;
+
+            color: var(--text-muted);
+        }
+
+        .item-count {
+            font-size: 10px;
+
+            font-weight: 800;
+
+            color: var(--text-light);
+        }
+
+        /* =========================================================
+           WORKFLOW
+        ========================================================= */
+
+        .workflow-panel {
+            margin-bottom: 25px;
+        }
+
+        .workflow {
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, minmax(0, 1fr));
+
+            padding: 10px 20px 25px;
+
+            gap: 10px;
+
+            position: relative;
+        }
+
+        .workflow::before {
+            content: "";
+
+            position: absolute;
+
+            top: 31px;
+
+            left: 10%;
+
+            right: 10%;
+
+            height: 2px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--mint-bright),
+                    var(--primary-light),
+                    var(--mint-bright)
+                );
+
+            z-index: 0;
+        }
+
+        .workflow-step {
+            position: relative;
+
+            z-index: 2;
+
+            text-align: center;
+        }
+
+        .workflow-icon {
+            width: 44px;
+            height: 44px;
+
+            margin: auto auto 9px;
+
+            border-radius: 14px;
+
+            background: var(--card-bg);
+
+            border: 2px solid var(--mint-bright);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 17px;
+
+            box-shadow: 0 5px 15px rgba(23, 107, 87, 0.08);
+        }
+
+        .workflow-step.active .workflow-icon {
+            background: var(--primary);
+
+            color: white;
+
+            border-color: var(--primary);
+
+            box-shadow:
+                0 8px 20px rgba(23, 107, 87, 0.22);
+        }
+
+        .workflow-step strong {
+            display: block;
+
+            font-size: 10px;
+
+            margin-bottom: 2px;
+        }
+
+        .workflow-step span {
+            display: block;
+
+            color: var(--text-muted);
+
+            font-size: 8px;
+        }
+
+        /* =========================================================
+           QUICK ACTIONS
+        ========================================================= */
+
+        .quick-actions {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 14px;
+
+            margin-bottom: 25px;
+        }
+
+        .action-card {
+            position: relative;
+
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 17px;
+
+            background: var(--card-bg);
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius-md);
+
+            box-shadow: var(--shadow-sm);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                border 0.25s ease;
+        }
+
+        .action-card:hover {
+            transform: translateY(-4px);
+
+            box-shadow: var(--shadow-md);
+
+            border-color: var(--mint-bright);
+        }
+
+        .action-icon {
+            flex-shrink: 0;
+
+            width: 41px;
+            height: 41px;
+
+            border-radius: 13px;
+
+            background: var(--mint);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 18px;
+        }
+
+        .action-card strong {
+            display: block;
+
+            font-size: 11px;
+
+            margin-bottom: 2px;
+        }
+
+        .action-card span {
+            display: block;
+
+            color: var(--text-muted);
+
+            font-size: 8px;
+        }
+
+        .action-arrow {
+            margin-left: auto;
+
+            color: var(--primary);
+
+            font-size: 14px;
+        }
+
+        /* =========================================================
+           SYSTEM STATUS
+        ========================================================= */
+
+        .system-card {
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1fr)
+                auto;
+
+            align-items: center;
+
+            gap: 20px;
+
+            padding: 19px 21px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--mint-soft),
+                    var(--card-bg)
+                );
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius-md);
+
+            box-shadow: var(--shadow-sm);
+
+            margin-bottom: 25px;
+        }
+
+        .system-left {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+        }
+
+        .system-icon {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 13px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: var(--success-soft);
+
+            color: var(--success);
+
+            font-size: 18px;
+        }
+
+        .system-left strong {
+            display: block;
+
+            font-size: 12px;
+        }
+
+        .system-left span {
+            display: block;
+
+            font-size: 9px;
+
+            color: var(--text-muted);
+        }
+
+        .system-status-list {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 9px;
+        }
+
+        .system-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            padding: 7px 9px;
+
+            border-radius: 999px;
+
+            background: var(--card-bg);
+
+            border: 1px solid var(--border);
+
+            font-size: 8px;
+            font-weight: 800;
+        }
+
+        .system-status i {
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: var(--success);
+        }
+
+        /* =========================================================
+           DISCLAIMER
+        ========================================================= */
+
+        .disclaimer {
+            display: flex;
+            align-items: flex-start;
+
+            gap: 11px;
+
+            padding: 16px 18px;
+
+            border-radius: 16px;
+
+            background: var(--warning-soft);
+
+            border: 1px solid rgba(184, 121, 32, 0.18);
+
+            margin-bottom: 40px;
+        }
+
+        .disclaimer-icon {
+            width: 30px;
+            height: 30px;
+
+            flex-shrink: 0;
+
+            border-radius: 10px;
+
+            background: rgba(184, 121, 32, 0.13);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: var(--warning);
+
+            font-size: 13px;
+        }
+
+        .disclaimer strong {
+            display: block;
+
+            color: var(--warning);
+
+            font-size: 10px;
+
+            margin-bottom: 2px;
+        }
+
+        .disclaimer p {
+            color: var(--text-light);
+
+            font-size: 9px;
+
+            line-height: 1.6;
+        }
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        .footer {
+            border-top: 1px solid var(--border);
+
+            padding: 22px 0 5px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+
+            gap: 8px;
+        }
+
+        .footer-mini-logo {
+            width: 28px;
+            height: 28px;
+
+            border-radius: 9px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--primary-light),
+                    var(--primary-dark)
+                );
+
+            font-size: 13px;
+        }
+
+        .footer-brand span {
+            font-size: 10px;
+
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            display: flex;
+
+            gap: 18px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+
+            font-size: 9px;
+
+            transition: 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* =========================================================
+           PROFILE DROPDOWN
+        ========================================================= */
+
+        .profile-wrapper {
+            position: relative;
+        }
+
+        .profile-dropdown {
+            position: absolute;
+
+            top: 51px;
+            right: 0;
+
+            width: 215px;
+
+            padding: 9px;
+
+            background: var(--card-bg);
+
+            border: 1px solid var(--border);
+
+            border-radius: 17px;
+
+            box-shadow: var(--shadow-md);
+
+            display: none;
+
+            z-index: 1100;
+        }
+
+        .profile-dropdown.show {
+            display: block;
+
+            animation:
+                dropdownIn 0.18s ease;
+        }
+
+        @keyframes dropdownIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .profile-head {
+            padding: 10px;
+
+            border-bottom: 1px solid var(--border);
+
+            margin-bottom: 6px;
+        }
+
+        .profile-head strong {
+            display: block;
+
+            font-size: 11px;
+        }
+
+        .profile-head span {
+            display: block;
+
+            font-size: 9px;
+
+            color: var(--text-muted);
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+        .dropdown-link {
+            display: flex;
+            align-items: center;
+
+            gap: 9px;
+
+            padding: 9px 10px;
+
+            border-radius: 10px;
+
+            font-size: 10px;
+            font-weight: 700;
+
+            color: var(--text-light);
+
+            transition: 0.2s ease;
+        }
+
+        .dropdown-link:hover {
+            background: var(--mint-soft);
+
+            color: var(--primary);
+        }
+
+        /* =========================================================
+           MOBILE NAV
+        ========================================================= */
+
+        .mobile-nav {
+            display: none;
+
+            position: fixed;
+
+            top: 76px;
+            left: 0;
+            right: 0;
+
+            z-index: 999;
+
+            padding: 14px;
+
+            background: var(--card-bg);
+
+            border-bottom: 1px solid var(--border);
+
+            box-shadow: var(--shadow-md);
+        }
+
+        .mobile-nav.show {
+            display: block;
+        }
+
+        .mobile-nav a {
+            display: block;
+
+            padding: 12px;
+
+            border-radius: 11px;
+
+            color: var(--text-light);
+
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .mobile-nav a:hover,
+        .mobile-nav a.active {
+            background: var(--mint-soft);
+
+            color: var(--primary);
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1050px) {
+
+            .nav-links {
+                gap: 16px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .quick-scan {
+                grid-template-columns:
+                    minmax(0, 1.3fr)
+                    280px;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 850px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .quick-scan {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-scan-visual {
+                min-height: 160px;
+            }
+
+            .stats-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .workflow {
+                grid-template-columns:
+                    repeat(5, 1fr);
+
+                overflow-x: auto;
+            }
+
+            .workflow::before {
+                left: 7%;
+                right: 7%;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .nav-container {
+                height: 70px;
+            }
+
+            .main {
+                padding-top: 98px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .logo-icon {
+                width: 38px;
+                height: 38px;
+            }
+
+            .profile-button,
+            .theme-toggle,
+            .mobile-menu {
+                width: 37px;
+                height: 37px;
+            }
+
+            .page-header {
+                align-items: flex-start;
+
+                flex-direction: column;
+
+                margin-bottom: 22px;
+            }
+
+            .date-card {
+                width: 100%;
+            }
+
+            .quick-scan {
+                padding: 22px;
+
+                border-radius: 22px;
+            }
+
+            .quick-scan-visual {
+                min-height: 150px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+
+                gap: 10px;
+            }
+
+            .stat-card {
+                padding: 15px;
+            }
+
+            .stat-number {
+                font-size: 23px;
+            }
+
+            .dashboard-grid {
+                gap: 15px;
+            }
+
+            .scan-row {
+                grid-template-columns:
+                    42px
+                    minmax(0, 1fr)
+                    auto;
+
+                gap: 9px;
+            }
+
+            .scan-date,
+            .scan-score {
+                display: none;
+            }
+
+            .scan-row .status {
+                justify-self: end;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .workflow {
+                display: flex;
+
+                overflow-x: auto;
+
+                padding-bottom: 20px;
+
+                gap: 28px;
+
+                scrollbar-width: thin;
+            }
+
+            .workflow-step {
+                min-width: 82px;
+            }
+
+            .workflow::before {
+                display: none;
+            }
+
+            .system-card {
+                grid-template-columns: 1fr;
+            }
+
+            .footer {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 430px) {
+
+            .main {
+                width: 94%;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 31px;
+            }
+
+            .scan-actions {
+                flex-direction: column;
+            }
+
+            .scan-actions .btn {
+                width: 100%;
+            }
+
+            .quick-scan-visual {
+                display: none;
+            }
+
+            .panel-header {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .compliance-content {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .system-status-list {
+                display: grid;
+
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* =========================================================
+           SCROLLBAR
+        ========================================================= */
+
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--cream-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--mint-bright);
+            border-radius: 20px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-light);
+        }
+
+        /* =========================================================
+           FADE ANIMATION
+        ========================================================= */
+
+        .reveal {
+            animation: revealUp 0.65s ease both;
+        }
+
+        .delay-1 {
+            animation-delay: 0.08s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.16s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.24s;
+        }
+
+        @keyframes revealUp {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(14px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background decorations -->
+    <div class="background-decoration blob-one"></div>
+    <div class="background-decoration blob-two"></div>
+
+
+    <!-- =========================================================
+         NAVBAR
+    ========================================================= -->
+
+    <header class="navbar">
+
+        <div class="nav-container">
+
+            <!-- Logo -->
+
+            <a href="dashboard.html" class="logo">
+
+                <div class="logo-icon">
+                    <span>🛡️</span>
+                </div>
+
+                <div class="logo-text">
+                    Veri<span>Shield</span>
+                </div>
+
+            </a>
+
+
+            <!-- Desktop navigation -->
+
+            <nav class="nav-links">
+
+                <a
+                    href="dashboard.html"
+                    class="active"
+                >
+                    Dashboard
+                </a>
+
+                <a href="scan.html">
+                    Scan
+                </a>
+
+                <a href="history.html">
+                    History
+                </a>
+
+                <a href="report.html">
+                    Reports
+                </a>
+
+            </nav>
+
+
+            <!-- Right actions -->
+
+            <div class="nav-actions">
+
+                <!-- Theme -->
+
+                <button
+                    type="button"
+                    id="themeToggle"
+                    class="theme-toggle"
+                    title="Switch to Night / Dark Mode"
+                    aria-label="Switch to Night / Dark Mode"
+                >
+                    🌙
+                </button>
+
+
+                <!-- Profile -->
+
+                <div class="profile-wrapper">
+
+                    <button
+                        type="button"
+                        id="profileButton"
+                        class="profile-button"
+                        aria-label="Open profile"
+                    >
+                        PP
+                    </button>
+
+
+                    <div
+                        id="profileDropdown"
+                        class="profile-dropdown"
+                    >
+
+                        <div class="profile-head">
+
+                            <strong id="dropdownName">
+                                Pallavi P.
+                            </strong>
+
+                            <span id="dropdownEmail">
+                                user@verishield.local
+                            </span>
+
+                        </div>
+
+
+                        <a
+                            href="profile.html"
+                            class="dropdown-link"
+                        >
+                            👤
+                            <span>Profile</span>
+                        </a>
+
+
+                        <a
+                            href="settings.html"
+                            class="dropdown-link"
+                        >
+                            ⚙️
+                            <span>Settings</span>
+                        </a>
+
+
+                        <a
+                            href="index.html"
+                            class="dropdown-link"
+                            id="logoutLink"
+                        >
+                            ↪️
+                            <span>Logout</span>
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Mobile menu -->
+
+                <button
+                    type="button"
+                    id="mobileMenuButton"
+                    class="mobile-menu"
+                    aria-label="Open menu"
+                >
+                    ☰
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================================
+         MOBILE NAV
+    ========================================================= -->
+
+    <nav
+        id="mobileNav"
+        class="mobile-nav"
+    >
+
+        <a
+            href="dashboard.html"
+            class="active"
+        >
+            🏠 Dashboard
+        </a>
+
+        <a href="scan.html">
+            📷 Scan Product
+        </a>
+
+        <a href="history.html">
+            🕘 Scan History
+        </a>
+
+        <a href="report.html">
+            📄 Reports
+        </a>
+
+    </nav>
+
+
+    <!-- =========================================================
+         MAIN DASHBOARD
+    ========================================================= -->
+
+    <main class="main">
+
+
+        <!-- =====================================================
+             PAGE HEADER
+        ===================================================== -->
+
+        <section class="page-header reveal">
+
+            <div>
+
+                <div class="page-eyebrow">
+                    <span class="page-eyebrow-dot"></span>
+                    VERISHIELD WORKSPACE
+                </div>
+
+                <h1>
+                    Welcome back,
+                    <span id="welcomeName">
+                        Pallavi
+                    </span> 👋
+                </h1>
+
+                <p>
+                    Monitor package compliance, review recent scans,
+                    and start a new preliminary compliance screening.
+                </p>
+
+            </div>
+
+
+            <div class="date-card">
+
+                <div class="date-icon">
+                    📅
+                </div>
+
+                <div>
+
+                    <small>
+                        TODAY
+                    </small>
+
+                    <strong id="currentDate">
+                        Loading...
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             QUICK SCAN HERO
+        ===================================================== -->
+
+        <section class="quick-scan reveal delay-1">
+
+            <div class="quick-scan-content">
+
+                <div class="mini-label">
+                    <span></span>
+                    READY TO CHECK A PACKAGE?
+                </div>
+
+                <h2>
+                    Scan a product and
+                    <br>
+                    check its declarations.
+                </h2>
+
+                <p>
+                    Upload or capture a packaged commodity image.
+                    VeriShield extracts visible label information
+                    and checks it against the configured Legal
+                    Metrology screening rules.
+                </p>
+
+
+                <div class="scan-actions">
+
+                    <a
+                        href="scan.html"
+                        class="btn btn-primary"
+                    >
+                        📷 Start New Scan
+                    </a>
+
+                    <a
+                        href="history.html"
+                        class="btn btn-outline"
+                    >
+                        🕘 View Scan History
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Scanner illustration -->
+
+            <div class="quick-scan-visual">
+
+                <div class="scanner-box">
+
+                    <div class="scanner-package">
+
+                        <div class="scanner-package-top">
+                            VERISHIELD
+                        </div>
+
+                        <div class="scanner-package-circle">
+                            📦
+                        </div>
+
+                        <div class="scanner-package-lines">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="scanner-corners"></div>
+
+                    <div class="scanner-line"></div>
+
+                    <div class="scan-status">
+
+                        <span class="scan-status-dot"></span>
+
+                        Ready to scan
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             STATISTICS
+        ===================================================== -->
+
+        <section class="stats-grid reveal delay-2">
+
+
+            <!-- Total scans -->
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        📦
+                    </div>
+
+                    <div class="stat-change">
+                        +12%
+                    </div>
+
+                </div>
+
+                <div class="stat-number" id="totalScans">
+                    6
+                </div>
+
+                <div class="stat-label">
+                    Total Scans
+                </div>
+
+            </div>
+
+
+            <!-- Compliant -->
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        ✓
+                    </div>
+
+                    <div class="stat-change">
+                        50%
+                    </div>
+
+                </div>
+
+                <div class="stat-number" id="compliantScans">
+                    3
+                </div>
+
+                <div class="stat-label">
+                    Passed Screening
+                </div>
+
+            </div>
+
+
+            <!-- Review -->
+
+            <div class="stat-card warning">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        🔎
+                    </div>
+
+                    <div class="stat-change">
+                        Review
+                    </div>
+
+                </div>
+
+                <div class="stat-number" id="reviewScans">
+                    2
+                </div>
+
+                <div class="stat-label">
+                    Need Review
+                </div>
+
+            </div>
+
+
+            <!-- Reports -->
+
+            <div class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        📄
+                    </div>
+
+                    <div class="stat-change">
+                        Ready
+                    </div>
+
+                </div>
+
+                <div class="stat-number" id="reportCount">
+                    1
+                </div>
+
+                <div class="stat-label">
+                    Reports Generated
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             RECENT SCANS + COMPLIANCE OVERVIEW
+        ===================================================== -->
+
+        <section class="dashboard-grid reveal delay-3">
+
+
+            <!-- =================================================
+                 RECENT SCANS
+            ================================================= -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div class="panel-title">
+
+                        <div class="panel-title-icon">
+                            🕘
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Recent Scans
+                            </strong>
+
+                            <span>
+                                Your latest package screenings
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <a
+                        href="history.html"
+                        class="view-all"
+                    >
+                        View all →
+                    </a>
+
+                </div>
+
+
+                <div class="scan-list">
+
+
+                    <!-- Scan 1 -->
+
+                    <div class="scan-row">
+
+                        <div class="product-icon">
+                            🍪
+                        </div>
+
+                        <div class="product-info">
+
+                            <strong>
+                                ABC Biscuits
+                            </strong>
+
+                            <span>
+                                Food • SCAN-006
+                            </span>
+
+                        </div>
+
+                        <div class="scan-date">
+                            Today, 10:42 AM
+                        </div>
+
+                        <div class="scan-score">
+                            94%
+                        </div>
+
+                        <div class="status pass">
+                            PASS
+                        </div>
+
+                    </div>
+
+
+                    <!-- Scan 2 -->
+
+                    <div class="scan-row">
+
+                        <div class="product-icon">
+                            🧴
+                        </div>
+
+                        <div class="product-info">
+
+                            <strong>
+                                Herbal Shampoo
+                            </strong>
+
+                            <span>
+                                Personal Care • SCAN-005
+                            </span>
+
+                        </div>
+
+                        <div class="scan-date">
+                            Yesterday
+                        </div>
+
+                        <div class="scan-score">
+                            82%
+                        </div>
+
+                        <div class="status review">
+                            REVIEW
+                        </div>
+
+                    </div>
+
+
+                    <!-- Scan 3 -->
+
+                    <div class="scan-row">
+
+                        <div class="product-icon">
+                            ☕
+                        </div>
+
+                        <div class="product-info">
+
+                            <strong>
+                                Instant Coffee
+                            </strong>
+
+                            <span>
+                                Food • SCAN-004
+                            </span>
+
+                        </div>
+
+                        <div class="scan-date">
+                            14 Sep
+                        </div>
+
+                        <div class="scan-score">
+                            91%
+                        </div>
+
+                        <div class="status pass">
+                            PASS
+                        </div>
+
+                    </div>
+
+
+                    <!-- Scan 4 -->
+
+                    <div class="scan-row">
+
+                        <div class="product-icon">
+                            🧼
+                        </div>
+
+                        <div class="product-info">
+
+                            <strong>
+                                Bath Soap
+                            </strong>
+
+                            <span>
+                                Personal Care • SCAN-003
+                            </span>
+
+                        </div>
+
+                        <div class="scan-date">
+                            13 Sep
+                        </div>
+
+                        <div class="scan-score">
+                            76%
+                        </div>
+
+                        <div class="status review">
+                            REVIEW
+                        </div>
+
+                    </div>
+
+
+                    <!-- Scan 5 -->
+
+                    <div class="scan-row">
+
+                        <div class="product-icon">
+                            🥫
+                        </div>
+
+                        <div class="product-info">
+
+                            <strong>
+                                Food Product
+                            </strong>
+
+                            <span>
+                                Packaged Food • SCAN-002
+                            </span>
+
+                        </div>
+
+                        <div class="scan-date">
+                            12 Sep
+                        </div>
+
+                        <div class="scan-score">
+                            96%
+                        </div>
+
+                        <div class="status pass">
+                            PASS
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 COMPLIANCE OVERVIEW
+            ================================================= -->
+
+            <div class="panel compliance-panel">
+
+                <div class="panel-header">
+
+                    <div class="panel-title">
+
+                        <div class="panel-title-icon">
+                            ⚖️
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Compliance Overview
+                            </strong>
+
+                            <span>
+                                Screening summary
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="compliance-content">
+
+
+                    <!-- Score -->
+
+                    <div class="compliance-score-box">
+
+                        <div class="score-top">
+
+                            <span>
+                                OVERALL SCREENING SCORE
+                            </span>
+
+                            <div class="score-value">
+                                88%
+                            </div>
+
+                        </div>
+
+                        <div class="progress">
+                            <span></span>
+                        </div>
+
+                        <div class="score-note">
+                            Based on recent preliminary compliance screenings.
+                        </div>
+
+                    </div>
+
+
+                    <!-- Checks -->
+
+                    <div class="compliance-items">
+
+
+                        <div class="compliance-item">
+
+                            <div class="compliance-item-left">
+
+                                <div class="check-icon">
+                                    ✓
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        Manufacturer Details
+                                    </strong>
+
+                                    <span>
+                                        Declaration detected
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="item-count">
+                                5/6
+                            </div>
+
+                        </div>
+
+
+                        <div class="compliance-item">
+
+                            <div class="compliance-item-left">
+
+                                <div class="check-icon">
+                                    ✓
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        Net Quantity
+                                    </strong>
+
+                                    <span>
+                                        Declaration detected
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="item-count">
+                                6/6
+                            </div>
+
+                        </div>
+
+
+                        <div class="compliance-item">
+
+                            <div class="compliance-item-left">
+
+                                <div class="check-icon">
+                                    ✓
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        MRP Declaration
+                                    </strong>
+
+                                    <span>
+                                        Declaration detected
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="item-count">
+                                5/6
+                            </div>
+
+                        </div>
+
+
+                        <div class="compliance-item">
+
+                            <div class="compliance-item-left">
+
+                                <div class="check-icon warning">
+                                    !
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        Date Information
+                                    </strong>
+
+                                    <span>
+                                        Some scans need review
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="item-count">
+                                4/6
+                            </div>
+
+                        </div>
+
+
+                        <div class="compliance-item">
+
+                            <div class="compliance-item-left">
+
+                                <div class="check-icon">
+                                    ✓
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        Consumer Care
+                                    </strong>
+
+                                    <span>
+                                        Declaration detected
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="item-count">
+                                5/6
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             WORKFLOW
+        ===================================================== -->
+
+        <section class="panel workflow-panel reveal">
+
+            <div class="panel-header">
+
+                <div class="panel-title">
+
+                    <div class="panel-title-icon">
+                        🔎
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            VeriShield Screening Workflow
+                        </strong>
+
+                        <span>
+                            From package image to explainable compliance findings
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="workflow">
+
+
+                <div class="workflow-step active">
+
+                    <div class="workflow-icon">
+                        📦
+                    </div>
+
+                    <strong>
+                        Product
+                    </strong>
+
+                    <span>
+                        Package image
+                    </span>
+
+                </div>
+
+
+                <div class="workflow-step active">
+
+                    <div class="workflow-icon">
+                        📷
+                    </div>
+
+                    <strong>
+                        Scan
+                    </strong>
+
+                    <span>
+                        Capture / upload
+                    </span>
+
+                </div>
+
+
+                <div class="workflow-step active">
+
+                    <div class="workflow-icon">
+                        🔤
+                    </div>
+
+                    <strong>
+                        OCR
+                    </strong>
+
+                    <span>
+                        Extract text
+                    </span>
+
+                </div>
+
+
+                <div class="workflow-step active">
+
+                    <div class="workflow-icon">
+                        ⚖️
+                    </div>
+
+                    <strong>
+                        Rule Check
+                    </strong>
+
+                    <span>
+                        Compare declarations
+                    </span>
+
+                </div>
+
+
+                <div class="workflow-step active">
+
+                    <div class="workflow-icon">
+                        📊
+                    </div>
+
+                    <strong>
+                        Result
+                    </strong>
+
+                    <span>
+                        Evidence + report
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             QUICK ACTIONS
+        ===================================================== -->
+
+        <section class="quick-actions reveal">
+
+
+            <a
+                href="scan.html"
+                class="action-card"
+            >
+
+                <div class="action-icon">
+                    📷
+                </div>
+
+                <div>
+
+                    <strong>
+                        New Scan
+                    </strong>
+
+                    <span>
+                        Check another package
+                    </span>
+
+                </div>
+
+                <div class="action-arrow">
+                    →
+                </div>
+
+            </a>
+
+
+            <a
+                href="history.html"
+                class="action-card"
+            >
+
+                <div class="action-icon">
+                    🕘
+                </div>
+
+                <div>
+
+                    <strong>
+                        Scan History
+                    </strong>
+
+                    <span>
+                        Review previous scans
+                    </span>
+
+                </div>
+
+                <div class="action-arrow">
+                    →
+                </div>
+
+            </a>
+
+
+            <a
+                href="report.html"
+                class="action-card"
+            >
+
+                <div class="action-icon">
+                    📄
+                </div>
+
+                <div>
+
+                    <strong>
+                        Reports
+                    </strong>
+
+                    <span>
+                        Open generated reports
+                    </span>
+
+                </div>
+
+                <div class="action-arrow">
+                    →
+                </div>
+
+            </a>
+
+
+            <a
+                href="profile.html"
+                class="action-card"
+            >
+
+                <div class="action-icon">
+                    👤
+                </div>
+
+                <div>
+
+                    <strong>
+                        My Profile
+                    </strong>
+
+                    <span>
+                        Manage your account
+                    </span>
+
+                </div>
+
+                <div class="action-arrow">
+                    →
+                </div>
+
+            </a>
+
+        </section>
+
+
+        <!-- =====================================================
+             SYSTEM STATUS
+        ===================================================== -->
+
+        <section class="system-card reveal">
+
+            <div class="system-left">
+
+                <div class="system-icon">
+                    ✓
+                </div>
+
+                <div>
+
+                    <strong>
+                        VeriShield system status
+                    </strong>
+
+                    <span>
+                        Core screening components are ready for use.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="system-status-list">
+
+                <div class="system-status">
+                    <i></i>
+                    OCR Ready
+                </div>
+
+                <div class="system-status">
+                    <i></i>
+                    Rules Ready
+                </div>
+
+                <div class="system-status">
+                    <i></i>
+                    Database Ready
+                </div>
+
+                <div class="system-status">
+                    <i></i>
+                    Reports Ready
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             DISCLAIMER
+        ===================================================== -->
+
+        <section class="disclaimer reveal">
+
+            <div class="disclaimer-icon">
+                !
+            </div>
+
+            <div>
+
+                <strong>
+                    Preliminary Compliance Screening
+                </strong>
+
+                <p>
+                    VeriShield provides an evidence-based preliminary
+                    screening of visible package declarations. Results
+                    should be reviewed by an authorized person before
+                    being treated as a final legal or regulatory
+                    determination. OCR uncertainty and image quality
+                    may affect some findings.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             FOOTER
+        ===================================================== -->
+
+        <footer class="footer">
+
+            <div class="footer-brand">
+
+                <div class="footer-mini-logo">
+                    🛡️
+                </div>
+
+                <span>
+                    © 2026 VeriShield • Smart Package Compliance Screening
+                </span>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="scan.html">
+                    Scan
+                </a>
+
+                <a href="history.html">
+                    History
+                </a>
+
+                <a href="report.html">
+                    Reports
+                </a>
+
+                <a href="settings.html">
+                    Settings
+                </a>
+
+            </div>
+
+        </footer>
+
+    </main>
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================= -->
+
+    <script>
+
+        /* =========================================================
+           USER DATA
+        ========================================================= */
+
+        const savedName =
+            localStorage.getItem("verishield_user_name");
+
+        const savedEmail =
+            localStorage.getItem("verishield_user_email");
+
+        const savedRole =
+            localStorage.getItem("verishield_user_role");
+
+
+        /* =========================================================
+           WELCOME NAME
+        ========================================================= */
+
+        const welcomeName =
+            document.getElementById("welcomeName");
+
+        const dropdownName =
+            document.getElementById("dropdownName");
+
+        const dropdownEmail =
+            document.getElementById("dropdownEmail");
+
+
+        if (savedName && savedName.trim() !== "") {
+
+            const firstName =
+                savedName.trim().split(" ")[0];
+
+            welcomeName.textContent =
+                firstName;
+
+            dropdownName.textContent =
+                savedName;
+
+        } else {
+
+            welcomeName.textContent =
+                "Pallavi";
+
+            dropdownName.textContent =
+                "Pallavi P.";
+
+        }
+
+
+        if (savedEmail && savedEmail.trim() !== "") {
+
+            dropdownEmail.textContent =
+                savedEmail;
+
+        }
+
+
+        /* =========================================================
+           CURRENT DATE
+        ========================================================= */
+
+        const currentDate =
+            document.getElementById("currentDate");
+
+        const today =
+            new Date();
+
+        const formattedDate =
+            today.toLocaleDateString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                }
+            );
+
+        currentDate.textContent =
+            formattedDate;
+
+
+        /* =========================================================
+           THEME TOGGLE
+        ========================================================= */
+
+        const themeToggle =
+            document.getElementById("themeToggle");
+
+
+        function updateThemeButton() {
+
+            const isDark =
+                document.documentElement.classList.contains(
+                    "dark-mode"
+                );
+
+
+            if (isDark) {
+
+                themeToggle.textContent =
+                    "☀️";
+
+                themeToggle.title =
+                    "Switch to Day / Light Mode";
+
+                themeToggle.setAttribute(
+                    "aria-label",
+                    "Switch to Day / Light Mode"
+                );
+
+            } else {
+
+                themeToggle.textContent =
+                    "🌙";
+
+                themeToggle.title =
+                    "Switch to Night / Dark Mode";
+
+                themeToggle.setAttribute(
+                    "aria-label",
+                    "Switch to Night / Dark Mode"
+                );
+
+            }
+
+        }
+
+
+        updateThemeButton();
+
+
+        themeToggle.addEventListener(
+            "click",
+            function () {
+
+                const isDark =
+                    document.documentElement.classList.toggle(
+                        "dark-mode"
+                    );
+
+
+                localStorage.setItem(
+                    "verishield_theme",
+                    isDark
+                        ? "dark"
+                        : "light"
+                );
+
+
+                updateThemeButton();
+
+            }
+        );
+
+
+        /* =========================================================
+           PROFILE DROPDOWN
+        ========================================================= */
+
+        const profileButton =
+            document.getElementById(
+                "profileButton"
+            );
+
+        const profileDropdown =
+            document.getElementById(
+                "profileDropdown"
+            );
+
+
+        profileButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+                profileDropdown.classList.toggle(
+                    "show"
+                );
+
+            }
+        );
+
+
+        document.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    !profileDropdown.contains(event.target) &&
+                    !profileButton.contains(event.target)
+                ) {
+
+                    profileDropdown.classList.remove(
+                        "show"
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           MOBILE MENU
+        ========================================================= */
+
+        const mobileMenuButton =
+            document.getElementById(
+                "mobileMenuButton"
+            );
+
+        const mobileNav =
+            document.getElementById(
+                "mobileNav"
+            );
+
+
+        mobileMenuButton.addEventListener(
+            "click",
+            function () {
+
+                mobileNav.classList.toggle(
+                    "show"
+                );
+
+
+                const isOpen =
+                    mobileNav.classList.contains(
+                        "show"
+                    );
+
+
+                mobileMenuButton.textContent =
+                    isOpen
+                        ? "✕"
+                        : "☰";
+
+            }
+        );
+
+
+        /* =========================================================
+           LOGOUT
+        ========================================================= */
+
+        const logoutLink =
+            document.getElementById(
+                "logoutLink"
+            );
+
+
+        logoutLink.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+
+                localStorage.removeItem(
+                    "verishield_logged_in"
+                );
+
+
+                window.location.href =
+                    "index.html";
+
+            }
+        );
+
+
+        /* =========================================================
+           PROFILE INITIALS
+        ========================================================= */
+
+        function createInitials(name) {
+
+            if (!name) {
+                return "PP";
+            }
+
+
+            const parts =
+                name.trim().split(/\s+/);
+
+
+            if (parts.length === 1) {
+
+                return parts[0]
+                    .substring(0, 2)
+                    .toUpperCase();
+
+            }
+
+
+            return (
+                parts[0][0] +
+                parts[parts.length - 1][0]
+            ).toUpperCase();
+
+        }
+
+
+        if (savedName) {
+
+            profileButton.textContent =
+                createInitials(savedName);
+
+        }
+
+
+        /* =========================================================
+           OPTIONAL BACKEND DATA HOOK
+           
+           When Flask backend is connected, this section can be
+           replaced with API data without changing the UI.
+        ========================================================= */
+
+        async function loadDashboardData() {
+
+            /*
+                Future API example:
+
+                const response =
+                    await fetch("/api/scans");
+
+                const data =
+                    await response.json();
+
+                Then update:
+
+                totalScans
+                compliantScans
+                reviewScans
+                reportCount
+
+                This demo currently uses local sample values
+                so the dashboard works without a backend.
+            */
+
+        }
+
+
+        loadDashboardData();
+
+
+        /* =========================================================
+           CLOSE MOBILE NAV AFTER LINK CLICK
+        ========================================================= */
+
+        document
+            .querySelectorAll(".mobile-nav a")
+            .forEach(function (link) {
+
+                link.addEventListener(
+                    "click",
+                    function () {
+
+                        mobileNav.classList.remove(
+                            "show"
+                        );
+
+                        mobileMenuButton.textContent =
+                            "☰";
+
+                    }
+                );
+
+            });
+
+    </script>
+
+</body>
+</html>
