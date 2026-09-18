@@ -1,67 +1,89 @@
 import os
-
-# Disable problematic PIR / oneDNN paths
-os.environ["FLAGS_enable_pir_api"] = "0"
-os.environ["FLAGS_use_mkldnn"] = "0"
-
-from paddleocr import PaddleOCR
-
-
-ocr = PaddleOCR(
-    lang="en",
-    enable_mkldnn=False,
-    use_doc_orientation_classify=False,
-    use_doc_unwarping=False,
-    use_textline_orientation=False
-)
+from PIL import Image, ImageEnhance, ImageFilter
+import pytesseract
 
 
 def extract_text(image_path):
     """
-    Extract text from a package image.
-    Returns a list of detected text lines.
+    Extract text from a package image using Tesseract OCR.
+
+    The function returns a list of detected text lines.
+    It does not require OpenCV, PaddleOCR, or PaddlePaddle.
     """
 
     extracted = []
 
     try:
-        result = ocr.predict(image_path)
+        # Check whether the image exists
+        if not os.path.exists(image_path):
+            print("\n==============================")
+            print("OCR ERROR")
+            print("==============================")
+            print(f"Image not found: {image_path}")
+            print("==============================\n")
+            return extracted
 
-        for page in result:
+        # Open image
+        image = Image.open(image_path)
 
-            if not hasattr(page, "json"):
-                continue
+        # Convert to RGB
+        if image.mode != "RGB":
+            image = image.convert("RGB")
 
-            data = page.json
+        # Make the image larger for better OCR
+        width, height = image.size
 
-            if isinstance(data, dict):
-                data = data.get("res", data)
+        if width < 1500:
+            scale = 1500 / width
+            new_width = int(width * scale)
+            new_height = int(height * scale)
+            image = image.resize(
+                (new_width, new_height),
+                Image.Resampling.LANCZOS
+            )
 
-            texts = data.get("rec_texts", [])
+        # Convert to grayscale
+        gray = image.convert("L")
 
-            for text in texts:
+        # Improve contrast
+        contrast = ImageEnhance.Contrast(gray)
+        gray = contrast.enhance(1.5)
 
-                if text and text.strip():
-                    extracted.append(text.strip())
+        # Slightly sharpen the image
+        gray = gray.filter(ImageFilter.SHARPEN)
 
+        # Run Tesseract OCR
+        text = pytesseract.image_to_string(
+            gray,
+            lang="eng",
+            config="--psm 6"
+        )
+
+        # Convert OCR output into clean lines
+        for line in text.splitlines():
+            line = line.strip()
+
+            if line:
+                extracted.append(line)
+
+        # Print OCR result in terminal
         print("\n==============================")
         print("OCR DETECTED TEXT")
         print("==============================")
 
         if extracted:
-            for text in extracted:
-                print(text)
+            for line in extracted:
+                print(line)
         else:
             print("No text detected.")
 
         print("==============================\n")
 
     except Exception as e:
-
         print("\n==============================")
         print("OCR ERROR")
         print("==============================")
-        print(e)
+        print(str(e))
         print("==============================\n")
 
     return extracted
